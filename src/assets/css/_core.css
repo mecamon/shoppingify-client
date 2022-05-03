@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --main-bg: #fafafe;
+  --card-bg-color: #fff;
+  --nav-bg-color: #fff;
+  --menu-bg-color: #FFF0DE;
+  --accent-color-1: #80485B;
+  --accent-color-2: #F9A109;
+  --accent-color-3: #56CCF2;
+  --warning-color: #EB5757;
+  --common-text-color: #000000;
+  --labels-color: #34333A;
+  --icons-color: #454545;
+  --placeholder-color: #BDBDBD;
+  --light-text-color: #828282;
+  --card-icon-color:#C1C1C4;
+  --disabled-color: #C1C1C4;
+}

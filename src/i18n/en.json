@@ -1,0 +1,10 @@
+
+{
+  "translation": {
+    "Welcome to React": "Welcome to React and react-i18next",
+    "item-msg": "This is the text for Item component",
+    "login": "Login",
+    "visitor": "Continue as visitor",
+    "title": "Shoppingify"
+  }
+}
