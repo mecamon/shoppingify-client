@@ -1,0 +1,21 @@
+.customLinks {
+    @apply w-full relative;
+    width: 100%;
+    display: block;
+}
+.customLinks > div{
+    display: none;
+}
+.customLinks:hover >  div{
+    @apply absolute bg-accent-3 rounded-br rounded-tr h-full w-1;
+    display: block;
+}
+.customActiveLinks {
+    @apply w-full relative;
+    width: 100%;
+    display: block;
+}
+.customActiveLinks >  div{
+    @apply absolute bg-accent-2 rounded-br rounded-tr h-full w-1;
+    display: block;
+}

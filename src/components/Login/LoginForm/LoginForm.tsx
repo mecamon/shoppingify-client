@@ -11,7 +11,7 @@ export default function LoginForm({anonymousLogin, state}: Props) {
 
   useEffect(() => {
     if(state.isAuthenticated) {
-      navigate('/dashboard')
+      navigate('/')
     }
   }, [state])
 
@@ -46,9 +46,9 @@ export default function LoginForm({anonymousLogin, state}: Props) {
           value={t("login")}
           data-testid="submit"
         />
-        <button 
-          type="button" 
-          onClick={async() => anonymousLogin()} 
+        <button
+          type="button"
+          onClick={async() => anonymousLogin()}
           className="text-accent-3"
           data-testid="anonymous-login"
           >

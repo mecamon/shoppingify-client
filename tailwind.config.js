@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         'main-bg': '#fafafe',
         'card-bg': '#ffffff',
-        'nav-bg': '#ffffff', 
+        'nav-bg': '#ffffff',
         'menu-bg': '#FFF0DE',
         'accent-1': '#80485B',
         'accent-2': '#F9A109',
@@ -21,7 +21,8 @@ module.exports = {
         'light-text': '#828282',
         'card-icon': '#C1C1C4',
         'disabled': '#C1C1C4',
-        'border-common': '#BDBDBD'
+        'border-common': '#BDBDBD',
+        'bubble-label': '#454545'
       },
     },
   },
