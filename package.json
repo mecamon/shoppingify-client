@@ -7,16 +7,18 @@
     "build": "tsc && vite build",
     "test": "jest --watchAll",
     "preview": "vite preview",
-    "json:server": "json-server --watch src/data-source/db.json --port 3004"
+    "json:server": "json-server --watch src/services/db.json --port 3004"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "babel-plugin-transform-import-meta": "^2.2.0",
     "i18next": "^21.6.16",
     "json-server": "^0.17.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.16.7",
-    "react-router-dom": "6"
+    "react-router-dom": "6",
+    "vite-plugin-environment": "^1.1.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",

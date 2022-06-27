@@ -1,6 +1,7 @@
 import axios, {AxiosError} from 'axios'
-// @ts-ignore
-const baseURL = !import.meta.env.PROD ? 'http://localhost:3004' : 'http://localhost:3004'
+import { getBaseUrl } from './url'
+
+const baseURL = getBaseUrl()
 
 const axiosJsonIns = axios.create({
     baseURL,

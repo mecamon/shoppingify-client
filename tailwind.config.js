@@ -24,6 +24,9 @@ module.exports = {
         'border-common': '#BDBDBD',
         'bubble-label': '#454545'
       },
+      boxShadow: {
+        'card': '0px 1px 4px 1px rgba(0, 0, 0, 0.1)'
+      }
     },
   },
   plugins: [],

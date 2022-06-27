@@ -1,0 +1,65 @@
+{
+  "auth": {},
+  "items": [
+    {
+      "id": "123123",
+      "category": "Daily Fruits",
+      "items": [
+        {
+          "id": "1235",
+          "name": "Pearl"
+        },
+        {
+          "id": "2235",
+          "name": "Green Apple from Greenland"
+        },
+        {
+          "id": "3235",
+          "name": "Orange"
+        },
+        {
+          "id": "4235",
+          "name": "Pera"
+        },
+        {
+          "id": "4239",
+          "name": "Kiwi"
+        }
+      ]
+    },
+    {
+      "id": "1231",
+      "category": "Meats",
+      "items": [
+        {
+          "id": "431",
+          "name": "Chicken"
+        },
+        {
+          "id": "32",
+          "name": "Beef"
+        },
+        {
+          "id": "423",
+          "name": "Orange"
+        },
+        {
+          "id": "434",
+          "name": "Pera"
+        }
+      ]
+    }
+  ],
+  "item": [
+    {
+      "id": "1235",
+      "name": "Pearl",
+      "note": "This is just a mock data",
+      "category": {
+        "id": "0001",
+        "name": "Fruits"
+      },
+      "image": "https://cdn.pixabay.com/photo/2010/12/13/10/06/food-2280_1280.jpg"
+    }
+  ]
+}

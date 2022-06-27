@@ -5,6 +5,8 @@
     "item-msg": "This is the text for Item component",
     "login": "Login",
     "visitor": "Continue as visitor",
-    "title": "Shoppingify"
+    "title": "Shoppingify",
+    "itemsHeadMsg": "allows you take your shopping list wherever you go",
+    "searchPlaceholder": "search item"
   }
 }

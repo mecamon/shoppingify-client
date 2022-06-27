@@ -1,25 +1,50 @@
 import { AxiosResponse } from "axios"
 import React, { useState } from "react"
-import Api from "../data-source/api"
+import AccountEndpoints from "../services/rest-api/account"
+import {AuthInfo, SuccessLogged} from "../models/models";
 
 
 export default function AuthProvider({children}: {children: React.ReactNode}) {
+  const initialState = {isAuthenticated: false, isLoading: false, err: null}
+  const [ state, setState ] = useState<AuthState>(initialState)
 
-  const initialState = {isAuthenticated: true, isLoading: false, err: null}
-  const [ state, setState ] = useState(initialState)
+  function errorHandling(e: any) {
+    const error = e.response?.data
+    setState(state => ({
+      ...state,
+      isLoading: false,
+      isAuthenticated: false,
+      err: error,
+    }))
+  }
 
-  async function anonymousLogin() {
-    setState({...state, isLoading: true})
+  function authenticateHandling(loggedData: SuccessLogged) {
+    const { token } = loggedData
+    localStorage.setItem('token', token)
+    setState(state => ({
+      ...state,
+      isLoading: false,
+      isAuthenticated: true,
+    }))
+  }
+
+  async function visitorLogin() {
+    setState(state => ({...state, isLoading: true}))
     try {
-      const res: AxiosResponse = await Api.anonymousAuth()
-      const { token } = res.data
-      localStorage.setItem('token', token)
-      setTimeout(() => {
-        setState({...state, isLoading: false, isAuthenticated: true})
-      }, 5000)
-    }catch(e: any) {
-      const error = e.response?.data
-      setState({...state, isLoading: false, isAuthenticated: false, err: error})
+      const res = await AccountEndpoints.visitor()
+      authenticateHandling(res.data)
+    } catch(e: any) {
+      errorHandling(e)
+    }
+  }
+
+  async function regularLogin(authInfo: AuthInfo) {
+    setState(state => ({...state, isLoading: true}))
+    try {
+      const res = await AccountEndpoints.register(authInfo)
+      authenticateHandling(res.data)
+    } catch (e: any) {
+      errorHandling(e)
     }
   }
 
@@ -27,7 +52,7 @@ export default function AuthProvider({children}: {children: React.ReactNode}) {
     setState(initialState)
   }
 
-  const dispatch: AuthDispatcher = { anonymousLogin, logout }
+  const dispatch: AuthDispatcher = { visitorLogin, regularLogin, logout }
   const initialContext: AuthContextType = {state, dispatch}
 
   return (
@@ -49,6 +74,7 @@ export interface AuthContextType {
   dispatch: AuthDispatcher
 }
 interface AuthDispatcher {
-  anonymousLogin: () => Promise<void>
+  regularLogin: (authInfo: AuthInfo) => Promise<void>
+  visitorLogin: () => Promise<void>
   logout: () => void
 }

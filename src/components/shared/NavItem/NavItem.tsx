@@ -26,7 +26,6 @@ export default function NavItem({icon, path, dataTestId, label}: Props) {
             style={labelStyles}
             >
           <span
-              data-testid="label"
               className="block text-xs text-white my-auto py-0.5"
             >{label}
           </span>

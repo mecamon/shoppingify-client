@@ -960,7 +960,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/template@^7.16.7", "@babel/template@^7.3.3":
+"@babel/template@^7.16.7", "@babel/template@^7.3.3", "@babel/template@^7.4.4":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.16.7.tgz#8d126c8701fde4d66b264b3eba3d96f07666d155"
   integrity sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==
@@ -1678,6 +1678,14 @@ babel-plugin-polyfill-regenerator@^0.3.0:
   integrity sha512-Y2B06tvgHYt1x0yz17jGkGeeMr5FeKUu+ASJ+N6nB5lQ8Dapfg42i0OVrf8PNGJ3zKL4A23snMi1IRwrqqND7A==
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.3.1"
+
+babel-plugin-transform-import-meta@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-import-meta/-/babel-plugin-transform-import-meta-2.2.0.tgz#a8a6a9a1bcb8e75ac5a44c6848bf1deb4ebfeb78"
+  integrity sha512-+DNF2SJAj2Pd0b1sObz+hyzNgUlI9DccPtMcF7ulMM0BxPrMF83ERjvPQwcQ9FRFSddWcC7DOw0FuyWgkQRoqg==
+  dependencies:
+    "@babel/template" "^7.4.4"
+    tslib "^2.4.0"
 
 babel-preset-current-node-syntax@^1.0.0:
   version "1.0.1"
@@ -4861,6 +4869,11 @@ ts-jest@^27.1.4:
     semver "7.x"
     yargs-parser "20.x"
 
+tslib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
+
 type-check@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
@@ -4993,6 +5006,11 @@ vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vite-plugin-environment@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-environment/-/vite-plugin-environment-1.1.1.tgz#c442b42eefcccd610d7882e6dd5ccbc29e26dfa5"
+  integrity sha512-kbUAZaqmiHap+7aqRfMolRGzCGhJSU45qDjgLM11DpSDzmiI5JL4EzdyAIUZ4g0WrO88EV2cdcq2fpNYuJ17Pg==
 
 vite@^2.9.5:
   version "2.9.6"

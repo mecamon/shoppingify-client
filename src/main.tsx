@@ -7,6 +7,7 @@ import './index.css'
 import AuthProvider from './providers/AuthProvider'
 import RequiresAuth from './providers/RequiresAuth'
 import ItemsPage from "./components/Items";
+import ItemsProvider from "./providers/ItemsProvider";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -14,11 +15,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <Routes>
           <Route path='/' element={<App />}>
-              <Route index element={
-                <RequiresAuth>
+            <Route index element={
+              <RequiresAuth>
+                <ItemsProvider>
                   <ItemsPage />
-                </RequiresAuth>}
-              />
+                </ItemsProvider>
+              </RequiresAuth>}
+            />
             <Route path='login' element={<LoginPage />} />
           </Route>
         </Routes>

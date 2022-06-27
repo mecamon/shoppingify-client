@@ -8,11 +8,11 @@ export default function LoginPage() {
   return (
     <div className=" bg-main-bg h-screen">
       <main className=" flex flex-col justify-center h-full">
-        <LoginForm 
-          anonymousLogin={dispatch.anonymousLogin} 
+        <LoginForm
+          anonymousLogin={dispatch.visitorLogin}
           state={state}
         />
       </main>
     </div>
   )
-} 
+}

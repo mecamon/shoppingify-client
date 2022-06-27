@@ -3,8 +3,19 @@ import React from 'react'
 import { AuthState } from '../../../providers/AuthProvider';
 import LoginForm from './LoginForm'
 
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str:any) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}))
+
 describe('LoginForm', () => {
-  
   let anonymousLogin: () => Promise<void>;
   let state: AuthState;
   let initialState: AuthState = {
