@@ -31,7 +31,7 @@ export function useItems() {
 
 export interface ItemsContextType {
   groups: GroupOfItemsByCat[]
-  setGroups: React.Dispatch<any>
+  setGroups: React.Dispatch<React.SetStateAction<GroupOfItemsByCat[]>>
   itemDetails: Item
-  setItemDetails: React.Dispatch<any>
+  setItemDetails: React.Dispatch<React.SetStateAction<Item>>
 }

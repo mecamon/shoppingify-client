@@ -4,9 +4,16 @@
     "Welcome to React": "Welcome to React and react-i18next",
     "item-msg": "This is the text for Item component",
     "login": "Login",
+    "register": "Register",
     "visitor": "Continue as visitor",
     "title": "Shoppingify",
     "itemsHeadMsg": "allows you take your shopping list wherever you go",
-    "searchPlaceholder": "search item"
+    "searchPlaceholder": "search item",
+    "emailLabel": "Email",
+    "passwordLabel":"Password",
+    "nameLabel": "Name",
+    "lastnameLabel": "Lastname",
+    "switchToLoginForm": "Switch to login",
+    "switchToRegisterForm": "Switch to register"
   }
 }

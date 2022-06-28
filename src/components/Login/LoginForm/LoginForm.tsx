@@ -1,34 +1,32 @@
 import { useTranslation } from "react-i18next"
-import styles from "./LoginForm.module.css"
 import Logo from "../../../assets/logo.svg"
-import React, { useEffect } from "react"
-import { AuthState } from "../../../providers/AuthProvider"
-import { useNavigate } from "react-router-dom"
+import { LoginInfo } from "../../../models/models"
+import React from "react"
 
-export default function LoginForm({anonymousLogin, state}: Props) {
+export default function LoginForm({loginInfo, updateLoginInfo, visitorLogin, regularLogin, toggleAuthMode}: Props) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    if(state.isAuthenticated) {
-      navigate('/')
-    }
-  }, [state])
+  async function login(e: any, loginInfo: LoginInfo) {
+    e.preventDefault()
+    await regularLogin(loginInfo)
+  }
 
   return (
-    <div className="mx-auto shadow-lg relative bg-menu-bg w-4/5 md:w-3/5 lg:w-2/5 2xl:w-1/5 h-2/5 rounded-xl">
+    <div className="auth-form-container">
       <img
         src={Logo}
         alt="site-logo"
         className=" w-8 h-auto absolute right-6 top-6"
       />
-      <form className={styles.form}>
+      <form className="auth-form" onSubmit={ async (e) => login(e, loginInfo)}>
         <span className=" text-labels text-xl text-center">{t("title")}</span>
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className=" h-10 rounded-xl outline-accent-2 border-border-common border-2"
+          value={loginInfo.email}
+          onChange={(e) => updateLoginInfo({...loginInfo, email: e.target.value})}
+          className="auth-form-input"
           id="email"
           data-testid="email"
         />
@@ -36,7 +34,9 @@ export default function LoginForm({anonymousLogin, state}: Props) {
           type="password"
           name="password"
           placeholder="Password"
-          className=" h-10 rounded-xl outline-accent-2 border-border-common border-2"
+          value={loginInfo.password}
+          onChange={(e) => updateLoginInfo({...loginInfo, password: e.target.value})}
+          className="auth-form-input"
           id="password"
           data-testid="password"
         />
@@ -48,18 +48,26 @@ export default function LoginForm({anonymousLogin, state}: Props) {
         />
         <button
           type="button"
-          onClick={async() => anonymousLogin()}
+          onClick={async() => visitorLogin()}
           className="text-accent-3"
-          data-testid="anonymous-login"
+          data-testid="visitor-login"
           >
           {t("visitor")}
         </button>
+        <button 
+          onClick={() => toggleAuthMode()}
+          className="text-accent-3 cursor-pointer text-xs" 
+          data-testid="toggle-auth-mode"
+          >{t("switchToRegisterForm")}</button>
       </form>
     </div>
   );
 }
 
 interface Props {
-  anonymousLogin: () => Promise<void>
-  state: AuthState
+  loginInfo: LoginInfo
+  updateLoginInfo: (loginInfo: LoginInfo) => void
+  toggleAuthMode: () => void
+  visitorLogin: () => Promise<void>
+  regularLogin: (loginInfo: LoginInfo) => Promise<void>
 }

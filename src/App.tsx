@@ -3,6 +3,8 @@ import './App.css'
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
 import english from './i18n/en.json'
+import { useAuth } from './providers/AuthProvider';
+import { useEffect } from 'react';
 i18n
   .use(initReactI18next) 
   .init({
@@ -17,6 +19,17 @@ i18n
   });
 
 function App() {
+  const { logout, authenticated } = useAuth()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      logout()
+    } else {
+      authenticated()
+    }
+  }, [])
+
   return (
     <div className="App">
       <Outlet />

@@ -15,9 +15,28 @@
   font-weight: 500;
 }
 
-
-
 input[type=text], input[type=email], input[type=password] {
   text-indent: 0.8rem;
   color: var(--labels-color);
+}
+
+.auth-form-container {
+  @apply mx-auto shadow-lg relative bg-menu-bg w-4/5 md:w-3/5 lg:w-2/5 2xl:w-1/5 py-12 rounded-xl;
+}
+
+.auth-form {
+  @apply mx-auto w-2/3 h-full flex flex-col justify-center;
+}
+
+.auth-form > *:not(:first-child) {
+  @apply mt-4;
+}
+
+.auth-form-input {
+  @apply  h-10 rounded-xl outline-accent-2 border-border-common border-2;
+}
+
+button:disabled, input:disabled {
+  opacity: 0.7;
+  cursor:default;
 }

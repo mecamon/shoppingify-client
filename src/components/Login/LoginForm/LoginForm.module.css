@@ -1,6 +1,0 @@
-.form {
-  @apply mx-auto w-2/3 h-full flex flex-col justify-center;
-}
-.form > *:not(:first-child) {
-  @apply mt-4;
-}
