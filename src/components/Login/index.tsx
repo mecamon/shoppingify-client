@@ -5,12 +5,16 @@ import { LoginInfo } from "../../models/models"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import RegisterForm from "./RegisterForm/RegisterForm"
-import { validEmail, validLengthField, validPassword } from "../../helpers/validators"
+import ConfirmationModal from "../shared/ConfirmationModal/ConfirmationModal"
+import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
+import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 
 
 export default function LoginPage() {
-  const { isAuthenticated, authenticated } = useAuth()
+  const { authenticated } = useAuth()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [authenticatingState, setAuthenticatingState] = React.useState<AuthenticatingState>({isLoading: false, err: null})
   const [isRegisterMode, setIsRegisterMode] = React.useState<boolean>(false)
   const [loginInfoState, setLoginInfoState] = React.useState<LoginInfo>({email: '', password: ''})
@@ -24,12 +28,7 @@ export default function LoginPage() {
     lastname: '',
     lastnameIsValid: null!,
   })
-
-  React.useEffect(() => {
-    if(isAuthenticated) {
-      navigate('/')
-    }
-  }, [isAuthenticated])
+  const [iShowingConfirmationModal, setIShowingConfirmationModal] = React.useState<boolean>(false)
 
   function toggleAuthMode() {
     setIsRegisterMode(prev => !prev)
@@ -49,8 +48,13 @@ export default function LoginPage() {
         lastname: registerInfoState.lastname,
       })
       localStorage.setItem('token', res.data.token)
+      authenticated()
+      navigate('/items')
     } catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
@@ -62,8 +66,12 @@ export default function LoginPage() {
       const res = await AccountEndpoints.login(loginInfo)
       localStorage.setItem('token', res.data.token)
       authenticated()
+      navigate('/items')
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
@@ -77,6 +85,9 @@ export default function LoginPage() {
       authenticated()
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
@@ -89,8 +100,26 @@ export default function LoginPage() {
   return (
     <div className=" bg-main-bg h-screen">
       <main className=" flex flex-col justify-center h-full">
+        {
+          iShowingConfirmationModal && 
+          <ConfirmationModal>
+            <span className=" text-accent-2 font-bold text-2xl">{t("warning")}</span>
+            <span className=" text-center text-light-text w-2/3">{t("visitorWarningMessage")}</span>
+            <div className="flex justify-center mt-2">
+              <button 
+                className="accent-btn"
+                onClick={async () => visitorLogin()}
+                >{t("yes")}</button>
+              <button 
+                className="accent-btn"
+                onClick={() => setIShowingConfirmationModal(false)}
+                >{t("no")}</button>
+            </div>
+          </ConfirmationModal>
+        }
         {isRegisterMode ? 
           <RegisterForm 
+            isLoading={authenticatingState.isLoading}
             registerInfo={registerInfoState} 
             updateFields={updateRegisterInfo} 
             registerNewUser={registerNewUser} 
@@ -98,10 +127,11 @@ export default function LoginPage() {
           />
           :
           <LoginForm
-          loginInfo={loginInfoState}
+            isLoading={authenticatingState.isLoading}
+            loginInfo={loginInfoState}
             updateLoginInfo={updateLoginInfo}
             regularLogin={regularLogin}
-            visitorLogin={visitorLogin}
+            showConfirmationAsVisitor={() => setIShowingConfirmationModal(true)}
             toggleAuthMode={toggleAuthMode}
           />
         }

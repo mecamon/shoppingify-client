@@ -12,13 +12,13 @@ export default function NavBar() {
         <ul className="w-full">
           <NavItem
               icon={<span id="link-icon" className="material-icons text-icons text-xl text-center w-full">list</span>}
-              path="/"
+              path="/items"
               dataTestId="items-nav"
               label="Items"
           />
           <NavItem
               icon={<span className="material-icons text-icons text-xl text-center w-full">history</span>}
-              path="/history"
+              path="/items/history"
               dataTestId="history-nav"
               label="History"
           />

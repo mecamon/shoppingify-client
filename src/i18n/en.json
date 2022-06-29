@@ -14,6 +14,13 @@
     "nameLabel": "Name",
     "lastnameLabel": "Lastname",
     "switchToLoginForm": "Switch to login",
-    "switchToRegisterForm": "Switch to register"
+    "switchToRegisterForm": "Switch to register",
+    "yes": "Yes",
+    "no": "No",
+    "visitorWarningMessage": "The visitors profile and data are deleted after 7 days of its creation. Do you still want to continue?",
+    "warning": "Please notice!",
+    "addItem": "Add item",
+    "sbItemMessage": "Didn't find what you need?",
+    "noItems": "No items"
   }
 }

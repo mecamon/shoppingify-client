@@ -3,7 +3,13 @@ import Logo from "../../../assets/logo.svg"
 import { LoginInfo } from "../../../models/models"
 import React from "react"
 
-export default function LoginForm({loginInfo, updateLoginInfo, visitorLogin, regularLogin, toggleAuthMode}: Props) {
+export default function LoginForm({
+  isLoading,
+  loginInfo, 
+  updateLoginInfo, 
+  showConfirmationAsVisitor, 
+  regularLogin, 
+  toggleAuthMode}: Props) {
   const { t } = useTranslation()
 
   async function login(e: any, loginInfo: LoginInfo) {
@@ -40,15 +46,21 @@ export default function LoginForm({loginInfo, updateLoginInfo, visitorLogin, reg
           id="password"
           data-testid="password"
         />
-        <input
-          type="submit"
-          className=" bg-accent-2 text-white rounded-xl py-1 cursor-pointer"
-          value={t("login")}
-          data-testid="submit"
-        />
+        {
+          !isLoading ? 
+            <input
+              type="submit"
+              className=" bg-accent-2 text-white rounded-xl py-1 cursor-pointer"
+              value={t("login")}
+              data-testid="submit"
+            /> :
+            <button disabled className="bg-accent-2 text-white rounded-xl py-1 cursor-pointer">
+              <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </button>
+        }
         <button
           type="button"
-          onClick={async() => visitorLogin()}
+          onClick={() => showConfirmationAsVisitor()}
           className="text-accent-3"
           data-testid="visitor-login"
           >
@@ -65,9 +77,10 @@ export default function LoginForm({loginInfo, updateLoginInfo, visitorLogin, reg
 }
 
 interface Props {
+  isLoading: boolean
   loginInfo: LoginInfo
   updateLoginInfo: (loginInfo: LoginInfo) => void
   toggleAuthMode: () => void
-  visitorLogin: () => Promise<void>
+  showConfirmationAsVisitor: () => void
   regularLogin: (loginInfo: LoginInfo) => Promise<void>
 }

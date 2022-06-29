@@ -5,7 +5,7 @@ const baseURL = getBaseUrl()
 
 const axiosJsonIns = axios.create({
     baseURL,
-    timeout: 8000,
+    timeout: 16000,
     headers: {'Content-Type': 'application/json'}
 })
 axiosJsonIns.interceptors.request.use(function (config) {
@@ -31,7 +31,7 @@ axiosJsonIns.interceptors.response.use(function (response) {
 //FOR MULTIPART FD
 const axiosMultiPartIns = axios.create({
     baseURL,
-    timeout: 8000,
+    timeout: 16000,
     headers: {'Content-Type': 'multipart/form-data'}
 })
 axiosMultiPartIns.interceptors.request.use(function (config) {

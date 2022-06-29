@@ -6,7 +6,7 @@ export default function RequiresAuth({children}: {children: JSX.Element}) {
   const { isAuthenticated } = useAuth()
   if (!isAuthenticated) {
     return (
-      <Navigate to="/login" replace={true} />
+      <Navigate to="/" replace={true} />
     )
   }
   return children

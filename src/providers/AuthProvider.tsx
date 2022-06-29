@@ -1,7 +1,7 @@
 import React, { SetStateAction, useContext, useMemo, useState } from "react"
 
-export default function AuthProvider({children}: {children: React.ReactNode}) {
-  const [ authState, setAuthState ] = useState<boolean>(false)
+export default function AuthProvider({children}: {children: React.ReactElement}) {
+  const [ authState, setAuthState ] = useState<boolean>(true)
 
   function logout() {
     setAuthState(false)

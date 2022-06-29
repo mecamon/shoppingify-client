@@ -18,24 +18,26 @@ jest.mock('react-i18next', () => ({
 describe('LoginForm', () => {
   let loginInfo: LoginInfo;
   let updateLoginInfo = jest.fn()
-  let visitorLogin = jest.fn()
+  let showConfirmationAsVisitor = jest.fn()
   let regularLogin = jest.fn()
   let toggleAuthMode = jest.fn()
 
   beforeEach(() => {
     loginInfo = {email: "", password: ""}
     updateLoginInfo.mockClear()
-    visitorLogin.mockClear()
+    showConfirmationAsVisitor.mockClear()
     regularLogin.mockClear()
   })
 
   it('fill form values', () => {
     const { getByTestId } = render(
       <LoginForm 
+        isLoading={false}
         loginInfo={loginInfo} 
         updateLoginInfo={updateLoginInfo} 
-        visitorLogin={visitorLogin} 
+        showConfirmationAsVisitor={showConfirmationAsVisitor} 
         regularLogin={regularLogin} 
+        toggleAuthMode={toggleAuthMode}
       />
     )
 
@@ -53,23 +55,26 @@ describe('LoginForm', () => {
   it('it triggers the anonymousLogin function', () => {
     const { getByTestId } = render(
       <LoginForm 
+        isLoading={false}
         loginInfo={loginInfo} 
         updateLoginInfo={updateLoginInfo} 
-        visitorLogin={visitorLogin} 
+        showConfirmationAsVisitor={showConfirmationAsVisitor} 
         regularLogin={regularLogin} 
+        toggleAuthMode={toggleAuthMode}
       />
     )
     const anonymousLoginBtn = getByTestId('visitor-login')
     fireEvent.click(anonymousLoginBtn)
-    expect(visitorLogin).toHaveBeenCalledTimes(1)
+    expect(showConfirmationAsVisitor).toHaveBeenCalledTimes(1)
   })
 
   it('it calls the "toggleAuthMode" after clicking the toggle button', () => {
     const { getByTestId } = render(
       <LoginForm 
+        isLoading={false}
         loginInfo={loginInfo} 
         updateLoginInfo={updateLoginInfo} 
-        visitorLogin={visitorLogin} 
+        showConfirmationAsVisitor={showConfirmationAsVisitor} 
         regularLogin={regularLogin} 
         toggleAuthMode={toggleAuthMode}
       />

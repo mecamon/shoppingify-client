@@ -38,6 +38,7 @@ describe('RegisterForm', () => {
   it('triggers update field function on every input to fields', () => {
     const { getByTestId } = render(
       <RegisterForm 
+        isLoading={false}
         registerInfo={registerInfo} 
         updateFields={updateFields} 
         registerNewUser={registerNewUser}
@@ -60,6 +61,7 @@ describe('RegisterForm', () => {
   it('enables the input button when all fields are filled', () => {
     const { getByTestId } = render(
       <RegisterForm 
+        isLoading={false}
         registerInfo={registerInfo} 
         updateFields={updateFields} 
         registerNewUser={registerNewUser}
@@ -84,6 +86,7 @@ describe('RegisterForm', () => {
   it('calls the function "toggleAuthMode" when clicking the loginMode button', () => {
     const { getByTestId } = render(
       <RegisterForm 
+        isLoading={false}
         registerInfo={registerInfo} 
         updateFields={updateFields} 
         registerNewUser={registerNewUser}

@@ -22,7 +22,8 @@ module.exports = {
         'card-icon': '#C1C1C4',
         'disabled': '#C1C1C4',
         'border-common': '#BDBDBD',
-        'bubble-label': '#454545'
+        'bubble-label': '#454545',
+        'modal': 'rgba(0, 0, 0, 0.5)'
       },
       boxShadow: {
         'card': '0px 1px 4px 1px rgba(0, 0, 0, 0.1)'

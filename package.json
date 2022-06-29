@@ -18,6 +18,7 @@
     "react-dom": "^18.0.0",
     "react-i18next": "^11.16.7",
     "react-router-dom": "6",
+    "react-toastify": "^9.0.5",
     "vite-plugin-environment": "^1.1.1"
   },
   "devDependencies": {

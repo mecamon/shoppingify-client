@@ -3,7 +3,13 @@ import { useTranslation } from "react-i18next"
 import { RegisterInfo } from ".."
 import Logo from "../../../assets/logo.svg"
 
-export default function RegisterForm({registerInfo, updateFields, registerNewUser, toggleAuthMode}: Props) {
+export default function RegisterForm({
+  isLoading,
+  registerInfo, 
+  updateFields, 
+  registerNewUser, 
+  toggleAuthMode
+}: Props) {
   const { t } = useTranslation()
   async function register(e: React.FormEvent) {
     e.preventDefault()
@@ -61,13 +67,19 @@ export default function RegisterForm({registerInfo, updateFields, registerNewUse
           onChange={(e) => updateFields({...registerInfo, lastname: e.target.value})} 
           className="auth-form-input"
           />
-        <input 
-          type="submit" 
-          value={t("register")} 
-          className=" bg-accent-2 text-white rounded-xl py-1 cursor-pointer"
-          disabled={!isValidForm} 
-          data-testid="submit" 
-          />
+        {
+          !isLoading ?
+          <input 
+            type="submit" 
+            value={t("register")} 
+            className=" bg-accent-2 text-white rounded-xl py-1 cursor-pointer"
+            disabled={!isValidForm} 
+            data-testid="submit" 
+          /> :
+          <button disabled className="bg-accent-2 text-white rounded-xl py-1 cursor-pointer">
+            <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+          </button>
+        }
         <button 
           onClick={() => toggleAuthMode()}
           className="text-accent-3 cursor-pointer mb-4 text-xs" 
@@ -79,6 +91,7 @@ export default function RegisterForm({registerInfo, updateFields, registerNewUse
 }
 
 interface Props {
+  isLoading: boolean
   registerInfo: RegisterInfo
   updateFields: (registerInfo: RegisterInfo) => void
   toggleAuthMode: () => void

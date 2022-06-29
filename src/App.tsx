@@ -1,10 +1,13 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom'
 import './App.css'
-import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import i18n from "i18next"
+import { useTranslation, initReactI18next } from "react-i18next"
 import english from './i18n/en.json'
-import { useAuth } from './providers/AuthProvider';
-import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AuthHandler from './providers/AuthHandler'
+
+
 i18n
   .use(initReactI18next) 
   .init({
@@ -19,20 +22,23 @@ i18n
   });
 
 function App() {
-  const { logout, authenticated } = useAuth()
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      logout()
-    } else {
-      authenticated()
-    }
-  }, [])
-
   return (
-    <div className="App">
-      <Outlet />
+    <div className="App relative">
+      <AuthHandler>
+        <Outlet />
+      </AuthHandler>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+      <ToastContainer />
     </div>
   )
 }
