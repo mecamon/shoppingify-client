@@ -17,6 +17,7 @@ jest.mock('react-i18next', () => ({
 
 describe('ListItemsSB', () => {
   let addItem = jest.fn()
+  let save = jest.fn()
   let list: List = {
     name: "List 1",
     date: "06-24-2022",
@@ -28,10 +29,11 @@ describe('ListItemsSB', () => {
 
   beforeEach(() => {
     addItem.mockClear()
+    save.mockClear()
   })
 
   it('triggers the "addItem" function on click', () => {
-    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={null!} />)
+    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={list}/>)
     const addItemButton = getByTestId('add-item')
     fireEvent.click(addItemButton)
     expect(addItem).toHaveBeenCalledTimes(1)
@@ -41,5 +43,11 @@ describe('ListItemsSB', () => {
     const { getByTestId } = render(<ListItemsSB addItem={addItem} list={list} />)
     const noItems = getByTestId('no-items')
     expect(noItems).toBeInTheDocument()
+  })
+
+  it('it finds the no active list message when the list value is null', () => {
+    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={null!} />)
+    const noActiveListMessage = getByTestId("no-active-list")
+    expect(noActiveListMessage).toBeInTheDocument()
   })
 })

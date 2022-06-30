@@ -23,7 +23,9 @@ module.exports = {
         'disabled': '#C1C1C4',
         'border-common': '#BDBDBD',
         'bubble-label': '#454545',
-        'modal': 'rgba(0, 0, 0, 0.5)'
+        'modal': 'rgba(0, 0, 0, 0.5)',
+        'effect-bg': '#f2f2f2',
+        'autocomplete': '#828282'
       },
       boxShadow: {
         'card': '0px 1px 4px 1px rgba(0, 0, 0, 0.1)'

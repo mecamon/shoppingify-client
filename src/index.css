@@ -15,9 +15,13 @@
   font-weight: 500;
 }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text], input[type=email], input[type=password], textarea {
   text-indent: 0.8rem;
   color: var(--labels-color);
+}
+
+textarea {
+  resize: none;
 }
 
 .auth-form-container {
@@ -43,6 +47,14 @@ button:disabled, input:disabled {
 
 .accent-btn {
   @apply text-white bg-accent-2 py-1 px-4 rounded-lg mx-1 shadow-card text-white bg-accent-2 py-1 px-4 rounded-lg mx-1 shadow-card;
+}
+
+.item-form-input {
+  @apply  h-16 border-2 border-disabled outline-none focus:border-accent-2 rounded-xl text-lg;
+}
+
+.item-form-textarea {
+  @apply  h-40 border-2 border-disabled outline-none focus:border-accent-2 rounded-xl text-lg;
 }
 
 .lds-ring {

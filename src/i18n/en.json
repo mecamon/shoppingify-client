@@ -21,6 +21,20 @@
     "warning": "Please notice!",
     "addItem": "Add item",
     "sbItemMessage": "Didn't find what you need?",
-    "noItems": "No items"
+    "noItems": "No items",
+    "saveButtonLabel": "Save",
+    "enterName": "Enter a name",
+    "noListCreated": "There is no active list. Head bottom, enter the list name and press 'Create'",
+    "createList": "Create",
+    "cancel": "Cancel",
+    "addNewItem": "Add new item",
+    "itemNamePlaceholder": "Enter a name",
+    "itemNoteLabel": "Note (optional)",
+    "itemNotePlaceholder": "Enter a note",
+    "itemCategoryLabel": "Category",
+    "itemCategoryPlaceholder": "Enter a category",
+    "itemImageLabel": "Image (optional)",
+    "itemImagePlaceholder": "Select an image",
+    "createCategory": "create category:"
   }
 }
