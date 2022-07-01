@@ -12,7 +12,7 @@ export default function CategoriesFound({
 
   return (
     <div className="w-full border border-disabled rounded-xl z-50 bg-white p-2 mt-3 absolute">
-      {
+      { 
         categoriesSuggested.map(cat => 
           <span 
             className="block cursor-pointer px-5 py-2 hover:bg-effect-bg text-lg text-autocomplete hover:text-common-text rounded-xl"

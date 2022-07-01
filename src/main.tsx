@@ -17,15 +17,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <AuthProvider>
         <ListProvider>
-          <Routes>
-            <Route path='/' element={<App />}>
-              <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
-                <Route index element={<ItemsProvider><ItemsPage/></ItemsProvider>}/>
-                <Route path="history" element={<h1>History page</h1>} />
+          <ItemsProvider>
+            <Routes>
+              <Route path='/' element={<App />}>
+                <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
+                  <Route index element={<ItemsPage/>}/>
+                  <Route path="history" element={<h1>History page</h1>} />
+                </Route>
+                <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
               </Route>
-              <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
-            </Route>
-          </Routes>
+            </Routes>
+          </ItemsProvider>
         </ListProvider>
       </AuthProvider>
     </BrowserRouter>

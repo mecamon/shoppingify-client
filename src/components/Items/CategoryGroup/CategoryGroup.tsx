@@ -25,7 +25,7 @@ export default function CategoryGroup({ group }: Props) {
   return (
       <section className="mb-10">
         <h2 data-testid="category" className="text-lg mb-4">{group.category_name}</h2>
-        <div className="w-full inline-grid gap-6 grid-cols-4">
+        <div className="w-full inline-grid gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           { group.items.map(item =>
               <div key={item.id}>
                 <ItemCard item={item} selectItem={async () => getItem(item.id)} />

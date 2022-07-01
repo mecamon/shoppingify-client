@@ -62,7 +62,7 @@ export default function ListAside() {
   }
 
   return (
-    <aside className="relative h-full w-1/4">
+    <>
       <ListItemsSB list={active} addItem={addItem} />
       <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
         {
@@ -71,6 +71,6 @@ export default function ListAside() {
           : <SBBottomBarContent onClick={createList} isLoading={isLoading} placeholder={t("enterName")} buttonLabel={t("createList")}/>
         }
       </div>
-    </aside>
+    </>
   )
 }

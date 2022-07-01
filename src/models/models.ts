@@ -20,7 +20,7 @@ export interface Category {
 }
 
 export interface Created {
-  inserted_id: string,
+  inserted_id: number,
 }
 
 export interface Item {
