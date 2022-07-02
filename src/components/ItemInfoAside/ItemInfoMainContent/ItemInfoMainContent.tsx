@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { ItemDetailed } from "../../../models/models"
 import FoodPlaceholder from "../../../assets/vegetable.png"
 
-export default function AddItemToListSB({ itemDetails, backToList }: Props) {
+export default function ItemInfoMainContent({ itemDetails, backToList }: Props) {
   const { t } = useTranslation()
   
   return (

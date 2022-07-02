@@ -1,6 +1,6 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
-import ListItemsSB from "./ListItemsSB"
+import ListItemsSB from "./ListAsideMainContent"
 import { List } from "../../../models/models"
 
 jest.mock('react-i18next', () => ({

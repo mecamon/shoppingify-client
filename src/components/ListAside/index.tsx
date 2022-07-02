@@ -1,11 +1,11 @@
 import React from "react"
-import { useList } from "../../../providers/ListProvider"
-import ListsEndpoints from "../../../services/rest-api/lists"
-import ListItemsSB from "../ListItemsSB/ListItemsSB"
-import SBBottomBarContent from "../SBBottomBarContent/SBBottomBarContent"
+import { useList } from "../../providers/ListProvider"
+import ListsEndpoints from "../../services/rest-api/lists"
+import ListAsideMainContent from "./ListAsideMainContent/ListAsideMainContent"
+import SBBottomBarContent from "./SBBottomBarContent/SBBottomBarContent"
 import { toast } from 'react-toastify'
-import DisplayErrors from "../DisplayErrors/DisplayErrors"
-import { ListToCreateOrUpdate } from "../../../models/models"
+import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
+import { ListToCreateOrUpdate } from "../../models/models"
 import { useTranslation } from "react-i18next"
 
 export default function ListAside() {
@@ -63,7 +63,7 @@ export default function ListAside() {
 
   return (
     <>
-      <ListItemsSB list={active} addItem={addItem} />
+      <ListAsideMainContent list={active} addItem={addItem} />
       <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
         {
           active !== null 

@@ -6,7 +6,7 @@ import CartGirl from "../../../assets/undraw_shopping_app_flsj 1.svg"
 import { createGroupsByCategory } from "../../../helpers/groups-by-category"
 import { ListSelectedItemLine } from "../ListSelectedItemLine/ListSelectedItemLine"
 
-export default function ListItemsSB({addItem, list}: Props) {
+export default function ListAsideMainContent({addItem, list}: Props) {
   const { t } = useTranslation()
   
   const listFormatedData = React.useMemo(() => {
@@ -62,7 +62,7 @@ export default function ListItemsSB({addItem, list}: Props) {
                       <label className="text-sm text-light-text">{group.category_name}</label>
                       <div className="w-full flex flex-col">
                         { 
-                          group.items.map(item => <ListSelectedItemLine listItem={item} /> )
+                          group.items.map(item => <ListSelectedItemLine listItem={item} key={item.id} /> )
                         }
                       </div>            
                     </div>

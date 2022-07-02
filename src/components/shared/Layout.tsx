@@ -3,9 +3,9 @@ import React from "react"
 import { Outlet } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useList } from "../../providers/ListProvider"
-import ListAside from "./ListAside/ListAside"
-import CreateItemAside from "./CreateItemAside/CreateItemAside"
-import ItemInfoAside from "./ItemInfoAside/ItemInfoAside"
+import ListAside from "../ListAside"
+import CreateItemAside from "../AddItemAside"
+import ItemInfoAside from "../ItemInfoAside"
 
 const MAX_MOBILE_WIDTH = 768
 

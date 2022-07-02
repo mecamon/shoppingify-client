@@ -1,7 +1,7 @@
 import React from "react"
 import { ListItem } from "../../../models/models"
 import ListsEndpoints from "../../../services/rest-api/lists"
-import DisplayErrors from "../DisplayErrors/DisplayErrors"
+import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import { ListSelEditController } from "../ListSelEditController/ListSelEditController"
 import { toast } from 'react-toastify'
 import { useList } from "../../../providers/ListProvider"

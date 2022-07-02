@@ -1,12 +1,12 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { useItems } from "../../../providers/ItemsProvider"
-import { useList } from "../../../providers/ListProvider"
-import ListsEndpoints from "../../../services/rest-api/lists"
-import AddItemToListSB from "../AddItemsToListSB/AddItemToListSB"
-import DisplayErrors from "../DisplayErrors/DisplayErrors"
+import { useItems } from "../../providers/ItemsProvider"
+import { useList } from "../../providers/ListProvider"
+import ListsEndpoints from "../../services/rest-api/lists"
+import ItemInfoMainContent from "./ItemInfoMainContent/ItemInfoMainContent"
+import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 import { toast } from 'react-toastify'
-import ItemsEndpoints from "../../../services/rest-api/items"
+import ItemsEndpoints from "../../services/rest-api/items"
 
 export default function ItemInfoAside() {
   const [isLoadingAddToList, setIsLoadingAddToList] = React.useState<boolean>(false)
@@ -69,7 +69,7 @@ export default function ItemInfoAside() {
 
   return (
     <>
-      <AddItemToListSB itemDetails={itemDetails} backToList={backToList} />
+      <ItemInfoMainContent itemDetails={itemDetails} backToList={backToList} />
       <div className="absolute flex justify-center items-center z-10 bottom-0 w-full p-11 bg-white">
         <div className="mx-2">
           <button className="flex justify-center min-w-details-sb-button items-center bg-white text-base rounded-xl py-5 transition-colors duration-500 ease-in"

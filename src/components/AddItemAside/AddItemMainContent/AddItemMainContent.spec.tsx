@@ -1,7 +1,7 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
-import AddItemSB from "./AddItemSB" 
-import { ItemFormValues } from "../CreateItemAside/CreateItemAside";
+import AddItemSB from "./AddItemMainContent" 
+import { ItemFormValues } from "..";
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown

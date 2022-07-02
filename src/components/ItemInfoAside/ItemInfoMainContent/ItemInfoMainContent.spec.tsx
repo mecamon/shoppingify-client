@@ -1,7 +1,7 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
 import { Item, ItemDetailed } from "../../../models/models"
-import AddItemToListSB from "./AddItemToListSB"
+import AddItemToListSB from "./ItemInfoMainContent"
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown

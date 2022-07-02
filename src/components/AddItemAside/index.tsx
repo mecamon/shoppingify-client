@@ -1,12 +1,12 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { useList } from "../../../providers/ListProvider"
-import ItemsEndpoints from "../../../services/rest-api/items"
-import AddItemSB from "../AddItemSB/AddItemSB"
-import DisplayErrors from "../DisplayErrors/DisplayErrors"
-import SBBottomBarButton from "../SBBottomBarButton/SBBottomBarButton"
+import { useList } from "../../providers/ListProvider"
+import ItemsEndpoints from "../../services/rest-api/items"
+import AddItemMainContent from "./AddItemMainContent/AddItemMainContent"
+import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
+import SBBottomBarButton from "./SBBottomBarButton/SBBottomBarButton"
 import { toast } from "react-toastify"
-import { useItems } from "../../../providers/ItemsProvider"
+import { useItems } from "../../providers/ItemsProvider"
 
 export default function CreateItemAside() {
   const { t } = useTranslation()
@@ -76,7 +76,7 @@ export default function CreateItemAside() {
 
   return (
     <>
-      <AddItemSB formValues={formValues} setFormValues={setFormValues} />
+      <AddItemMainContent formValues={formValues} setFormValues={setFormValues} />
       <div className="absolute flex justify-center items-center z-10 bottom-0 w-full p-11 bg-main-bg">
         <div className="mx-2">
           <SBBottomBarButton 

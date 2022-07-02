@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next"
 import { Category } from "../../../models/models"
 import CategoriesEndpoints from "../../../services/rest-api/categories"
 import CategoriesFound from "../CategoriesFound/CategoriesFound"
-import DisplayErrors from "../DisplayErrors/DisplayErrors"
+import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import { toast } from "react-toastify"
-import { ItemFormValues } from "../CreateItemAside/CreateItemAside"
+import { ItemFormValues } from ".."
 
-export default function AddItemSB({formValues, setFormValues}: Props) {
+export default function AddItemMainContent({formValues, setFormValues}: Props) {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
   const [isLoadingCategory, setIsLoadingCategory] = React.useState<boolean>(false)
   const [categoriesSuggested, setCategoriesSuggested] = React.useState<Category[]>([])

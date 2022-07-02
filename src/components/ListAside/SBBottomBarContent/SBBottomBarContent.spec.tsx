@@ -10,6 +10,7 @@ describe('SBBottomBarContent', () => {
   it('it finds placeholder and buttonlabel props as text in the document', () => {
     const { getByTestId, getByPlaceholderText } = render(
       <SBBottomBarContent 
+        isLoading={false}
         onClick={onClick} 
         placeholder={placeholder} 
         buttonLabel={buttonlabel} />
@@ -23,6 +24,7 @@ describe('SBBottomBarContent', () => {
   it('it triggers onClick function after clicking the button', () => {
     const { getByTestId, getByPlaceholderText } = render(
       <SBBottomBarContent 
+        isLoading={false}
         onClick={onClick} 
         placeholder={placeholder} 
         buttonLabel={buttonlabel} />
