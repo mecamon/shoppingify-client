@@ -15,7 +15,7 @@ export default function ListAside() {
 
   React.useEffect(() => {
     async function getActiveList() {
-      if (active === null && !isLoading) {
+      if (!isLoading) {
         await loadActiveList()
       }
     }

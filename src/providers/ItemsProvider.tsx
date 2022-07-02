@@ -1,11 +1,11 @@
 import React, {useContext, useMemo, useState} from "react";
-import {GroupOfItemsByCat, Item} from "../models/models";
+import {GroupOfItemsByCat, Item, ItemDetailed} from "../models/models";
 
 const ItemsContext = React.createContext<ItemsContextType>(null!)
 
 export default function ItemsProvider({children}: {children: React.ReactNode}) {
   const [groups, setGroups] = useState<GroupOfItemsByCat[]>([])
-  const [itemDetails, setItemDetails] = useState<Item>(null!)
+  const [itemDetails, setItemDetails] = useState<ItemDetailed>(null!)
 
   const contextValue = useMemo(() => ({
     groups,
@@ -32,6 +32,6 @@ export function useItems() {
 export interface ItemsContextType {
   groups: GroupOfItemsByCat[]
   setGroups: React.Dispatch<React.SetStateAction<GroupOfItemsByCat[]>>
-  itemDetails: Item
-  setItemDetails: React.Dispatch<React.SetStateAction<Item>>
+  itemDetails: ItemDetailed
+  setItemDetails: React.Dispatch<React.SetStateAction<ItemDetailed>>
 }

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { useList } from "../../providers/ListProvider"
 import ListAside from "./ListAside/ListAside"
 import CreateItemAside from "./CreateItemAside/CreateItemAside"
+import ItemInfoAside from "./ItemInfoAside/ItemInfoAside"
 
 const MAX_MOBILE_WIDTH = 768
 
@@ -37,6 +38,8 @@ export default function Layout() {
         return <ListAside/>
       case 'CreatingItem':
         return <CreateItemAside />
+      case 'ItemDetails':
+        return <ItemInfoAside />
     }
   }
 

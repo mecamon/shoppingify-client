@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios";
-import {GroupOfItemsByCat, Created, CreateItem, Item} from "../../models/models";
+import {GroupOfItemsByCat, Created, CreateItem, Item, ItemDetailed} from "../../models/models";
 import {axiosJsonIns, axiosMultiPartIns} from "../../helpers/axios-instances";
 
 export default class ItemsEndpoints {
@@ -11,7 +11,11 @@ export default class ItemsEndpoints {
     return axiosMultiPartIns.post('/api/items', fd)
   }
 
-  static getById(id: number): Promise<AxiosResponse<Item>> {
+  static getById(id: number): Promise<AxiosResponse<ItemDetailed>> {
     return axiosJsonIns.get(`/api/items/${id}`)
+  }
+
+  static deleteById(id: number): Promise<AxiosResponse<any>> {
+    return axiosJsonIns.delete(`/api/items/${id}`)
   }
 }

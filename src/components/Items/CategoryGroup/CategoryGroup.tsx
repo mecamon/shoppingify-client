@@ -1,38 +1,43 @@
-import React from "react";
-import {GroupOfItemsByCat} from "../../../models/models";
-import ItemCard from "../ItemCard/ItemCard";
-import {useItems} from "../../../providers/ItemsProvider";
-import ItemsEndpoints from "../../../services/rest-api/items";
+import React from "react"
+import {GroupOfItemsByCat} from "../../../models/models"
+import ItemCard from "../ItemCard/ItemCard"
+import {useItems} from "../../../providers/ItemsProvider"
+import ItemsEndpoints from "../../../services/rest-api/items"
+import { toast } from 'react-toastify'
+import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
+import { useList } from "../../../providers/ListProvider"
 
 export default function CategoryGroup({ group }: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [hasError, setHasError] = React.useState<any>(null)
-
   const { setItemDetails } = useItems()
+  const { setAsideMode } = useList()
 
   async function getItem(id: number) {
-    setIsLoading(() => true)
+    setIsLoading(true)
     try {
       const res = await ItemsEndpoints.getById(id)
-      setItemDetails(() => res.data)
+      setItemDetails(res.data)
+      setAsideMode('ItemDetails')
     } catch (e: any) {
-      setHasError(() => e.response.data)
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
     } finally {
-      setIsLoading(() => false)
+      setIsLoading(false)
     }
   }
 
   return (
-      <section className="mb-10">
-        <h2 data-testid="category" className="text-lg mb-4">{group.category_name}</h2>
-        <div className="w-full inline-grid gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          { group.items.map(item =>
-              <div key={item.id}>
-                <ItemCard item={item} selectItem={async () => getItem(item.id)} />
-              </div>
-          ) }
-        </div>
-      </section>
+    <section className="mb-10">
+      <h2 data-testid="category" className="text-lg mb-4">{group.category_name}</h2>
+      <div className="w-full inline-grid gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        { group.items.map(item =>
+            <div key={item.id}>
+              <ItemCard item={item} selectItem={getItem} />
+            </div>
+        ) }
+      </div>
+    </section>
   )
 }
 

@@ -35,6 +35,12 @@
     "itemCategoryPlaceholder": "Enter a category",
     "itemImageLabel": "Image (optional)",
     "itemImagePlaceholder": "Select an image",
-    "createCategory": "create category:"
+    "createCategory": "create category:",
+    "delete": "delete",
+    "addToList": "Add to list",
+    "note": "Note",
+    "back": "back",
+    "itemAddedMessage": "Item was added to list!",
+    "itemDeletedMessage": "Item was deleted!"
   }
 }

@@ -24,11 +24,16 @@ module.exports = {
         'border-common': '#BDBDBD',
         'bubble-label': '#454545',
         'modal': 'rgba(0, 0, 0, 0.5)',
+        'traslucid': 'rgba(255, 255, 255, 0.6)',
+        'grey-traslucid': 'rgba(230, 230, 230, 0.7)',
         'effect-bg': '#f2f2f2',
         'autocomplete': '#828282'
       },
       boxShadow: {
         'card': '0px 1px 4px 1px rgba(0, 0, 0, 0.1)'
+      },
+      minWidth: {
+        'details-sb-button': '128px',
       }
     },
   },

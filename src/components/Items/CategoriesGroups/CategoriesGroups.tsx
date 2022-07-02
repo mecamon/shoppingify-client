@@ -10,7 +10,7 @@ export default function CategoriesGroups() {
 
   React.useEffect(() => {
     async function fetchItems() {
-      if (groups.length === 0) await fetchData()
+      if (groups?.length === 0) await fetchData()
     }
     fetchItems()
   }, [])

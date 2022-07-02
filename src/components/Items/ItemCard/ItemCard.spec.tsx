@@ -9,8 +9,6 @@ describe('ItemCard', () => {
     id: 1234,
     name: "Apple",
     category_id: 23,
-    image_url: "",
-    note: "this is a note"
   }
   let selectItem: jest.Mock
   beforeEach(() => {

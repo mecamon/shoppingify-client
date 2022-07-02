@@ -16,7 +16,7 @@ export default function SBBottomBarButton({
         disabled={isDisabled}
         onClick={ async () => onClick() }>
           <span 
-            className={isLoading ? "absolute invisible" : "absolute visible"} 
+            className={isLoading ? "absolute block invisible" : "absolute block visible"} 
             data-testid="button-label" >{ buttonLabel }</span>
           <div className={
               isLoading 
