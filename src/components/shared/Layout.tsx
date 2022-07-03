@@ -6,12 +6,15 @@ import { useList } from "../../providers/ListProvider"
 import ListAside from "../ListAside"
 import CreateItemAside from "../AddItemAside"
 import ItemInfoAside from "../ItemInfoAside"
+import ConfirmationModal from "./ConfirmationModal/ConfirmationModal"
+import { useModal } from "../../providers/ModalProvider"
 
 const MAX_MOBILE_WIDTH = 768
 
 export default function Layout() {
   const { t } = useTranslation()
   const { asideMode } = useList()
+  const { displayingType, getModalContent } = useModal()
   const [isMobileMode, setIsMobileMode] = React.useState<boolean>(true)
   const [isShowingCart, setIsShowingCart] = React.useState<boolean>(false)
   
@@ -45,6 +48,11 @@ export default function Layout() {
 
   return (
     <div id="container" className="flex">
+      { displayingType !== 'none' &&
+        <ConfirmationModal>
+          {getModalContent()}
+        </ConfirmationModal>
+      }
       <header className="h-screen w-16">
         <NavBar toggleSideBarOnMobile={() => setIsShowingCart(prev => !prev)} />
       </header>

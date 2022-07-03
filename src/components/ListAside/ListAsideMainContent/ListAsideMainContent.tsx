@@ -6,10 +6,19 @@ import CartGirl from "../../../assets/undraw_shopping_app_flsj 1.svg"
 import { createGroupsByCategory, ListItemsGroupByCategory } from "../../../helpers/groups-by-category"
 import { AritmeticOps, ListSelectedItemLine } from "../ListSelectedItemLine/ListSelectedItemLine"
 import { AddItemTopArea } from "../AddItemTopArea/AddItemTopArea"
+import { useList } from "../../../providers/ListProvider"
+import ListSelectedItemLineComplete from "../ListSelectedItemLineComplete/ListSelectedItemLineComplete"
+import ListsEndpoints from "../../../services/rest-api/lists"
+import { toast } from "react-toastify"
+import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
+import ToggleEditCompleteButton from "../ToggleEditCompleteButton/ToggleEditCompleteButton"
 
 export default function ListAsideMainContent({updateItems, list, setItemsToDeleteOnClient}: Props) {
   const [listClientData, setListClientData] = React.useState<ListItemsGroupByCategory[]>([])
+  const [isLoadingCompleting, setIsLoadingCompleting] = React.useState<boolean>(false)
+
   const { t } = useTranslation()
+  const { isCompleting, setActive } = useList()
   
   const listFormatedData = React.useMemo(() => {
     const data = createGroupsByCategory(list?.items)
@@ -53,8 +62,32 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
     })
     setListClientData(newClientData)
   } 
-  
 
+  async function complete(id: number) {
+    setIsLoadingCompleting(true)
+    try {
+      await ListsEndpoints.completeSelectedItem({item_sel_id: id})
+      await realoadList()
+    }catch (e: any) {
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+    } finally {
+      setIsLoadingCompleting(false)
+    }
+  }
+
+  async function realoadList() {
+    try {
+      const res = await ListsEndpoints.getActive()
+      setActive(res.data)
+    } catch(e: any) {
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+    }
+  }
+  
   return (
     <div className="flex flex-col bg-menu-bg h-full px-3 xl:px-11 pb-11">
       <div className="w-full h-1/4 relative p-4">
@@ -71,14 +104,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
           : <div className="relative w-full h-3/4 flex flex-col px-4">
               <div className="flex justify-between mb-8">
                 <h2 className=" text-2xl text-labels">{list.name}</h2>
-                <div>
-                  <button className="rounded-full bg-traslucid h-10 w-10 mx-2">
-                    <span className="material-icons text-labels text-2xl">edit</span>
-                  </button>
-                  <button className="rounded-full bg-traslucid h-10 w-10 mx-2">
-                    <span className="material-icons text-labels text-2xl">done</span>
-                  </button>
-                </div> 
+                <ToggleEditCompleteButton />
               </div>
               <div className="w-full flex flex-col">
                 {
@@ -88,11 +114,18 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
                       <div className="w-full flex flex-col">
                         { 
                           group.items.map(item => 
-                            <ListSelectedItemLine 
-                              listItem={item}
-                              updateClientData={updateClientData}
-                              deleteClientData={deleteClientData} 
-                              key={item.id} /> )
+                            isCompleting
+                            ? <ListSelectedItemLineComplete
+                                listItem={item}
+                                complete={complete}
+                                key={item.id}
+                                />
+                            : <ListSelectedItemLine 
+                                listItem={item}
+                                updateClientData={updateClientData}
+                                deleteClientData={deleteClientData} 
+                                key={item.id} /> 
+                          )
                         }
                       </div>            
                     </div>

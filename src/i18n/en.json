@@ -26,7 +26,8 @@
     "enterName": "Enter a name",
     "noListCreated": "There is no active list. Head bottom, enter the list name and press 'Create'",
     "createList": "Create",
-    "cancel": "Cancel",
+    "cancel": "cancel",
+    "complete": "Complete",
     "addNewItem": "Add new item",
     "itemNamePlaceholder": "Enter a name",
     "itemNoteLabel": "Note (optional)",
@@ -42,6 +43,8 @@
     "back": "back",
     "itemAddedMessage": "Item was added to list!",
     "itemDeletedMessage": "Item was deleted!",
-    "changeListNamePlaceholder": "rename list?"
+    "changeListNamePlaceholder": "rename list?",
+    "cancelListWarning": "Are you sure that you want to cancel this list?",
+    "completeListWarning": "Are you sure that you want to complete this list?"
   }
 }

@@ -2,19 +2,24 @@ import React from "react"
 import { useList } from "../../providers/ListProvider"
 import ListsEndpoints from "../../services/rest-api/lists"
 import ListAsideMainContent from "./ListAsideMainContent/ListAsideMainContent"
-import SBBottomBarContent from "./BottomBarContent/BottomBarContent"
+import BottomBarContent from "./BottomBarContent/BottomBarContent"
 import { toast } from 'react-toastify'
 import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 import { ItemToUpdateInList, ListItem, ListToCreateOrUpdate } from "../../models/models"
 import { useTranslation } from "react-i18next"
 import { AxiosResponse } from "axios"
 import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListContent"
+import BottomBarCompleting from "./BottomBarCompleting/BottomBarCompleting"
+import { useModal } from "../../providers/ModalProvider"
 
 export default function ListAside() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [isLoadingCompleting, setIsLoadingCompleting] = React.useState<boolean>(false)
   const [itemsToUpdate, setItemsToUpdate] = React.useState<ItemToUpdateInList[]>([])
   const [itemsToDelete, setItemsToDelete] = React.useState<number[]>([])
-  const { active, setActive } = useList()
+
+  const { active, setActive, isCompleting } = useList()
+  const { setDisplayType } = useModal()
   const { t } = useTranslation()
 
   React.useEffect(() => {
@@ -88,6 +93,15 @@ export default function ListAside() {
     return itemsToDelete.map(i => ListsEndpoints.deleteSelectedItem(i))
   }
 
+  function cancelList() {
+    console.log('CANCELING LIST....')
+    setDisplayType('CancelList')
+  }
+
+  function completeList() {
+    console.log('COMPLETING LIST....')
+  }
+
   return (
     <> 
       <ListAsideMainContent 
@@ -96,15 +110,19 @@ export default function ListAside() {
         setItemsToDeleteOnClient={setItemsToDeleteOnClient}
       />
       <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
-        {
-          active !== null 
+        { isCompleting
+          ? <BottomBarCompleting 
+              cancel={cancelList} 
+              complete={completeList} 
+              isLoading={isLoadingCompleting}/>
+          : active !== null 
           ? <BottomBarActListContent 
               onClick={saveChangesOnList} 
               isLoading={isLoading} 
               placeholder={t("changeListNamePlaceholder")} 
               buttonLabel={t("saveButtonLabel")}
               />
-          : <SBBottomBarContent 
+          : <BottomBarContent 
               onClick={createList} 
               isLoading={isLoading} 
               placeholder={t("enterName")} buttonLabel={t("createList")}
@@ -114,3 +132,4 @@ export default function ListAside() {
     </>
   )
 }
+

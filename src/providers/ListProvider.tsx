@@ -6,12 +6,15 @@ const ListContext = React.createContext<ListContextType>(null!)
 export default function ListProvider({children}: {children: React.ReactNode}) {
   const [active, setActive] = React.useState<List>(null!)
   const [asideMode, setAsideMode] = React.useState<AsideBar>('List')
+  const [isCompleting, setIsCompleting] = React.useState<boolean>(false)
   const contextValue = React.useMemo(() => ({
     active,
     setActive,
     asideMode,
     setAsideMode,
-  }), [active, asideMode])
+    isCompleting,
+    setIsCompleting
+  }), [active, asideMode, isCompleting])
 
   return (
     <ListContext.Provider value={contextValue} >
@@ -33,6 +36,8 @@ export interface ListContextType {
   setActive: React.Dispatch<React.SetStateAction<List>>
   asideMode: AsideBar
   setAsideMode: React.Dispatch<React.SetStateAction<AsideBar>>
+  isCompleting: boolean, 
+  setIsCompleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type AsideBar = 'List' | 'CreatingItem' | 'ItemDetails'
