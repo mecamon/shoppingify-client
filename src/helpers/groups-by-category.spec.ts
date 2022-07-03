@@ -30,12 +30,26 @@ describe('createGroupsByCategory', () => {
       category_name: "Meats",
       is_completed: false,
     },
+    {
+      id: 4, 
+      item_id: 6,
+      name: "Chicken Breast",
+      quantity: 7,
+      category_id: 3,
+      category_name: "Meats",
+      is_completed: false,
+    },
   ]
 
   it('expects to get an array of "ListItemsGroupByCategory" with no category_name duplicates', () => {
     const itemsFormated = createGroupsByCategory(items)
     const hasDuplicates = itHasDuplicates(itemsFormated)
     expect(hasDuplicates).toBe(false)
+  })
+
+  it('expect to find only two groups of categories', () => {
+    const itemsFormated = createGroupsByCategory(items)
+    expect(itemsFormated.length).toEqual(2)
   })
 })
 

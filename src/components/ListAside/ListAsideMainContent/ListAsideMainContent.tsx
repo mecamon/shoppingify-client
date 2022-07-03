@@ -1,40 +1,65 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { List } from "../../../models/models"
+import { List, ListItem } from "../../../models/models"
 import Bottle from "../../../assets/source.svg"
 import CartGirl from "../../../assets/undraw_shopping_app_flsj 1.svg"
-import { createGroupsByCategory } from "../../../helpers/groups-by-category"
-import { ListSelectedItemLine } from "../ListSelectedItemLine/ListSelectedItemLine"
+import { createGroupsByCategory, ListItemsGroupByCategory } from "../../../helpers/groups-by-category"
+import { AritmeticOps, ListSelectedItemLine } from "../ListSelectedItemLine/ListSelectedItemLine"
+import { AddItemTopArea } from "../AddItemTopArea/AddItemTopArea"
 
-export default function ListAsideMainContent({addItem, list}: Props) {
+export default function ListAsideMainContent({updateItems, list, setItemsToDeleteOnClient}: Props) {
+  const [listClientData, setListClientData] = React.useState<ListItemsGroupByCategory[]>([])
   const { t } = useTranslation()
   
   const listFormatedData = React.useMemo(() => {
-    return createGroupsByCategory(list?.items)
+    const data = createGroupsByCategory(list?.items)
+    setListClientData(data)
+    return data
   }, [list])
+
+  function updateClientData(category_id: number, itemSelId: number, operation: AritmeticOps) {
+    const newClientData = listClientData.map(l => {
+      if (l.category_id === category_id) {
+        const group = {...l}
+        const item = group.items.find(i => i.id === itemSelId) as ListItem
+        if (operation === 'addition') {
+          item.quantity++
+          updateItems({...item})
+        } else {
+          if (item.quantity > 1) {
+            item.quantity--
+            updateItems({...item})
+          } 
+        }
+        return group
+      } else {
+        return l
+      }
+    })
+    setListClientData(newClientData)
+  }
+  
+  function deleteClientData(category_id: number, itemSelId: number,) {
+    const newClientData = listClientData.map(l => {
+      if (category_id === l.category_id) {
+        const i = l.items.findIndex( el => el.id === itemSelId)
+        setItemsToDeleteOnClient(l.items[i].id)
+        const {...newGroup} = l
+        newGroup.items.splice(i, 1)
+        return newGroup
+      } else {
+        return l
+      }
+    })
+    setListClientData(newClientData)
+  } 
+  
 
   return (
     <div className="flex flex-col bg-menu-bg h-full px-3 xl:px-11 pb-11">
       <div className="w-full h-1/4 relative p-4">
         <img className="absolute top-0" src={Bottle} alt="bottle icon" />
-        <div className=" w-full p-5 flex justify-end bg-accent-1 rounded-xl">
-          {
-            list !== null 
-              ? <div className=" w-2/3">
-                  <span className="block text-white mb-2">{ t("sbItemMessage") }</span>
-                  <button 
-                    className="bg-white hover:bg-slate-100 py-3 px-7 text-lg text-labels font-bold rounded-xl"
-                    data-testid="add-item" 
-                    onClick={() => addItem()}>{ t("addItem") }</button>
-                </div>
-              : <div className=" w-2/3">
-                  <span 
-                    className="block text-white mb-2"
-                    data-testid="no-active-list"
-                    >{ t("noListCreated") }</span>
-                </div>
-          }
-        </div>
+        <AddItemTopArea />
       </div>
       { (list?.items?.length === 0 || !list?.items || list === null)
           ? <div className="relative w-full h-3/4 flex flex-col items-center px-4">
@@ -57,12 +82,17 @@ export default function ListAsideMainContent({addItem, list}: Props) {
               </div>
               <div className="w-full flex flex-col">
                 {
-                  listFormatedData.map(group => 
+                  listClientData.map(group => 
                     <div className="w-full mb-8" key={group.category_id}>
                       <label className="text-sm text-light-text">{group.category_name}</label>
                       <div className="w-full flex flex-col">
                         { 
-                          group.items.map(item => <ListSelectedItemLine listItem={item} key={item.id} /> )
+                          group.items.map(item => 
+                            <ListSelectedItemLine 
+                              listItem={item}
+                              updateClientData={updateClientData}
+                              deleteClientData={deleteClientData} 
+                              key={item.id} /> )
                         }
                       </div>            
                     </div>
@@ -76,6 +106,7 @@ export default function ListAsideMainContent({addItem, list}: Props) {
 }
 
 interface Props {
-  addItem: () => void
+  updateItems: (listItem: ListItem) => void
+  setItemsToDeleteOnClient: (id: number) => void
   list: List
 }

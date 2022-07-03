@@ -11,20 +11,24 @@ export function createGroupsByCategory(
   const groupByCategory: ListItemsGroupByCategory[] = []
   const groupOfCatIds: number[] = [] //Control array
 
-  groupWithDuplicates.forEach(group => {
-
-    if (groupOfCatIds.includes(group.category_id)) {
-      const equalCat = groupByCategory.find(el => el.category_id = group.category_id)
-      equalCat?.items.push(group)
-    } else {
+  //Creating groups by categories
+  groupWithDuplicates.forEach(g => {
+    if (!groupOfCatIds.includes(g.category_id)) {
+      groupOfCatIds.push(g.category_id)
       groupByCategory.push({
-        category_id: group.category_id,
-        category_name: group.category_name,
-        items: [group]
+        category_id: g.category_id,
+        category_name: g.category_name,
+        items: []
       })
-      groupOfCatIds.push(group.category_id)
     }
   })
+
+  //Adding items to its groups
+  groupWithDuplicates.forEach(e => {
+    const group = groupByCategory.find(g => g.category_id === e.category_id)
+    group?.items.push(e)
+  })
+
   return groupByCategory
 }
 

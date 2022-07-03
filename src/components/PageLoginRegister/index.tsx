@@ -30,6 +30,10 @@ export default function LoginPage() {
   })
   const [iShowingConfirmationModal, setIShowingConfirmationModal] = React.useState<boolean>(false)
 
+  React.useEffect(() => {
+    console.log('FROM LOGIN PAGE....')
+  }, [])
+
   function toggleAuthMode() {
     setIsRegisterMode(prev => !prev)
   }

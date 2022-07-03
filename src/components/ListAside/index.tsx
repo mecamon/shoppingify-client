@@ -2,15 +2,19 @@ import React from "react"
 import { useList } from "../../providers/ListProvider"
 import ListsEndpoints from "../../services/rest-api/lists"
 import ListAsideMainContent from "./ListAsideMainContent/ListAsideMainContent"
-import SBBottomBarContent from "./SBBottomBarContent/SBBottomBarContent"
+import SBBottomBarContent from "./BottomBarContent/BottomBarContent"
 import { toast } from 'react-toastify'
 import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
-import { ListToCreateOrUpdate } from "../../models/models"
+import { ItemToUpdateInList, ListItem, ListToCreateOrUpdate } from "../../models/models"
 import { useTranslation } from "react-i18next"
+import { AxiosResponse } from "axios"
+import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListContent"
 
 export default function ListAside() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const { active, setActive, setAsideMode } = useList()
+  const [itemsToUpdate, setItemsToUpdate] = React.useState<ItemToUpdateInList[]>([])
+  const [itemsToDelete, setItemsToDelete] = React.useState<number[]>([])
+  const { active, setActive } = useList()
   const { t } = useTranslation()
 
   React.useEffect(() => {
@@ -53,22 +57,58 @@ export default function ListAside() {
     }
   }
 
-  function addItem() {
-    setAsideMode('CreatingItem')
+  function updateItems(lists: ListItem) {
+    const item: ItemToUpdateInList = {item_id: lists.id, quantity: lists.quantity} 
+    setItemsToUpdate((prev) => [...prev, item])
   }
 
-  async function save() {
+  function setItemsToDeleteOnClient(id: number) {
+    setItemsToDelete(prev => [...prev, id])
+  }
 
+  async function saveChangesOnList(renameList: string) {
+    setIsLoading(true)
+    try {
+      //Order matters. Update first, delete after, then rename
+      await ListsEndpoints.updateItemInActiveList(itemsToUpdate)
+      const requests = createDeleteArray()
+      await Promise.all(requests)
+      await ListsEndpoints.updateActiveName({name: renameList})
+      await loadActiveList()
+    } catch (e: any) {
+      toast.error(<DisplayErrors errs={e?.response.data}/>, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  function createDeleteArray(): Promise<AxiosResponse>[] {
+    return itemsToDelete.map(i => ListsEndpoints.deleteSelectedItem(i))
   }
 
   return (
-    <>
-      <ListAsideMainContent list={active} addItem={addItem} />
+    <> 
+      <ListAsideMainContent 
+        list={active} 
+        updateItems={updateItems} 
+        setItemsToDeleteOnClient={setItemsToDeleteOnClient}
+      />
       <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
         {
           active !== null 
-          ? <SBBottomBarContent onClick={save} isLoading={isLoading} placeholder={t("enterName")} buttonLabel={t("saveButtonLabel")}/>
-          : <SBBottomBarContent onClick={createList} isLoading={isLoading} placeholder={t("enterName")} buttonLabel={t("createList")}/>
+          ? <BottomBarActListContent 
+              onClick={saveChangesOnList} 
+              isLoading={isLoading} 
+              placeholder={t("changeListNamePlaceholder")} 
+              buttonLabel={t("saveButtonLabel")}
+              />
+          : <SBBottomBarContent 
+              onClick={createList} 
+              isLoading={isLoading} 
+              placeholder={t("enterName")} buttonLabel={t("createList")}
+              />
         }
       </div>
     </>

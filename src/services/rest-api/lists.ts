@@ -41,13 +41,12 @@ export default class ListsEndpoints {
     return axiosJsonIns.put('/api/lists/selected-items', selectedItem)
   }
 
-  // TODO: Modify this in the backend so it does not take a body to delete an item
   static deleteSelectedItem(itemID: number): Promise<AxiosResponse<any>> {
     return axiosJsonIns.delete(`/api/lists/selected-items/${itemID}`)
   }
 
-  static updateItemInActiveList(itemToUpdate: ItemToUpdateInList): Promise<AxiosResponse<any>> {
-    return axiosJsonIns.post('/api/lists/update-items', itemToUpdate)
+  static updateItemInActiveList(itemToUpdate: ItemToUpdateInList[]): Promise<AxiosResponse<any>> {
+    return axiosJsonIns.patch('/api/lists/update-items', itemToUpdate)
   }
 
   static getListById(listId: number): Promise<AxiosResponse<List>> {

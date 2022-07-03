@@ -41,6 +41,7 @@
     "note": "Note",
     "back": "back",
     "itemAddedMessage": "Item was added to list!",
-    "itemDeletedMessage": "Item was deleted!"
+    "itemDeletedMessage": "Item was deleted!",
+    "changeListNamePlaceholder": "rename list?"
   }
 }

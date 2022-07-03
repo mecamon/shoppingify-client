@@ -1,7 +1,8 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
-import ListItemsSB from "./ListAsideMainContent"
+import ListAsideMainContent from "./ListAsideMainContent"
 import { List } from "../../../models/models"
+import ListProvider from "../../../providers/ListProvider"
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -16,8 +17,8 @@ jest.mock('react-i18next', () => ({
 }))
 
 describe('ListItemsSB', () => {
-  let addItem = jest.fn()
-  let save = jest.fn()
+  let updateItems = jest.fn()
+  let setItemsToDeleteOnClient = jest.fn()
   let list: List = {
     name: "List 1",
     date: "06-24-2022",
@@ -28,25 +29,33 @@ describe('ListItemsSB', () => {
   } 
 
   beforeEach(() => {
-    addItem.mockClear()
-    save.mockClear()
-  })
-
-  it('triggers the "addItem" function on click', () => {
-    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={list}/>)
-    const addItemButton = getByTestId('add-item')
-    fireEvent.click(addItemButton)
-    expect(addItem).toHaveBeenCalledTimes(1)
+    updateItems.mockClear()
+    setItemsToDeleteOnClient.mockClear()
   })
 
   it('shows "No items" message when getting a list with no items', () => {
-    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={list} />)
+    const { getByTestId } = render(
+      <ListProvider>
+        <ListAsideMainContent 
+        updateItems={updateItems} 
+        setItemsToDeleteOnClient={setItemsToDeleteOnClient}
+        list={list} />
+      </ListProvider>
+      )
     const noItems = getByTestId('no-items')
     expect(noItems).toBeInTheDocument()
   })
 
   it('it finds the no active list message when the list value is null', () => {
-    const { getByTestId } = render(<ListItemsSB addItem={addItem} list={null!} />)
+    const { getByTestId } = render(
+      <ListProvider>
+        <ListAsideMainContent 
+        updateItems={updateItems} 
+        setItemsToDeleteOnClient={setItemsToDeleteOnClient}
+        list={null!} 
+        />
+      </ListProvider>
+      )
     const noActiveListMessage = getByTestId("no-active-list")
     expect(noActiveListMessage).toBeInTheDocument()
   })

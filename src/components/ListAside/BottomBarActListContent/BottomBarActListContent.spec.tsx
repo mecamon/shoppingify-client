@@ -1,15 +1,15 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
-import SBBottomBarContent from "./SBBottomBarContent"
+import BottomBarActListContent from "./BottomBarActListContent"
 
-describe('SBBottomBarContent', () => {
+describe('BottomBarActListContent', () => {
   let onClick = jest.fn()
   let placeholder = 'Enter name'
   let buttonlabel = 'Create'
 
   it('it finds placeholder and buttonlabel props as text in the document', () => {
     const { getByTestId, getByPlaceholderText } = render(
-      <SBBottomBarContent 
+      <BottomBarActListContent 
         isLoading={false}
         onClick={onClick} 
         placeholder={placeholder} 
@@ -23,7 +23,7 @@ describe('SBBottomBarContent', () => {
 
   it('it triggers onClick function after clicking the button', () => {
     const { getByTestId, getByPlaceholderText } = render(
-      <SBBottomBarContent 
+      <BottomBarActListContent 
         isLoading={false}
         onClick={onClick} 
         placeholder={placeholder} 

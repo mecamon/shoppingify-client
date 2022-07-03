@@ -1,39 +1,23 @@
 import React from "react"
 import { ListItem } from "../../../models/models"
-import ListsEndpoints from "../../../services/rest-api/lists"
-import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
-import { ListSelEditController } from "../ListSelEditController/ListSelEditController"
-import { toast } from 'react-toastify'
 import { useList } from "../../../providers/ListProvider"
+import { ListSelEditController } from "../ListSelEditController/ListSelEditController"
 
-export function ListSelectedItemLine({listItem}: Props) {
+
+export function ListSelectedItemLine({listItem, updateClientData, deleteClientData}: Props) {
   const [isShowingEdit, setIsShowingEdit] = React.useState<boolean>(false)
-  const { setActive } = useList()
+  const { active } = useList()
 
-  function updateQuantity(operation: AritmeticOps) {
+  React.useEffect(() => {
+    setIsShowingEdit(false)
+  }, [active])
 
+  function updateQuantity(category_id: number, itemSelId: number, operation: AritmeticOps) {
+    updateClientData(category_id, itemSelId, operation)
   }
 
-  async function deleteItem(id: number) {
-    try {
-      await ListsEndpoints.deleteSelectedItem(id) 
-      await reloadList()
-    } catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      })
-    }
-  }
-
-  async function reloadList() {
-    try {
-      const res = await ListsEndpoints.getActive() 
-      setActive(res.data)
-    } catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      })
-    }
+  function deleteItem(category_id: number, itemSelId: number,) {
+    deleteClientData(category_id, itemSelId)
   }
 
   return(
@@ -65,6 +49,8 @@ export function ListSelectedItemLine({listItem}: Props) {
 
 interface Props {
   listItem: ListItem
+  updateClientData: (category_id: number, itemSelId: number, operation: AritmeticOps) => void
+  deleteClientData: (category_id: number, itemSelId: number) => void
 }
 
 export type AritmeticOps = 'addition' | 'substraction'

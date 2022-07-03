@@ -11,9 +11,10 @@ import Layout from './components/shared/Layout'
 import ItemsProvider from './providers/ItemsProvider'
 import RedirectOnLogged from './providers/RedirectOnLogged'
 import ListProvider from './providers/ListProvider'
+import { PageHistory } from './components/PageHistory/PageHistory'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <ListProvider>
@@ -22,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <Route path='/' element={<App />}>
                 <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
                   <Route index element={<ItemsPage/>}/>
-                  <Route path="history" element={<h1>History page</h1>} />
+                  <Route path="history" element={<PageHistory />} />
                 </Route>
                 <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
               </Route>
@@ -31,5 +32,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </ListProvider>
       </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

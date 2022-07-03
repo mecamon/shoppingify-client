@@ -17,6 +17,7 @@ export default function LoginForm({
     await regularLogin(loginInfo)
   }
 
+
   return (
     <div className="auth-form-container">
       <img

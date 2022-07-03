@@ -10,6 +10,7 @@ export default function SBBottomBarContent({onClick, placeholder, buttonLabel, i
       >
       <input 
         className="rounded-xl bg-transparent w-full outline-none text-xl" 
+        data-testid="input-text"
         placeholder={ placeholder }
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
@@ -18,6 +19,7 @@ export default function SBBottomBarContent({onClick, placeholder, buttonLabel, i
         className={inputValue === '' || isLoading
           ? "relative flex justify-center items-center bg-disabled text-xl text-white rounded-xl px-10 py-5 transition-colors duration-500 ease-in" 
           : "relative flex justify-center items-center bg-accent-2 text-xl text-white rounded-xl px-10 py-5 transition-colors duration-500 ease-in" }
+        disabled={inputValue === ''}
         data-testid="action-button" 
         onClick={async () => onClick(inputValue)}>
           <span className={isLoading ? "absolute invisible" : "absolute visible"}>{ buttonLabel }</span>

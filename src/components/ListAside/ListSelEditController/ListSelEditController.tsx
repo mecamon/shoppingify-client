@@ -5,11 +5,11 @@ import { AritmeticOps } from "../ListSelectedItemLine/ListSelectedItemLine"
 export function ListSelEditController({listItem, updateQuantity, deleteItem}: Props) {
   return (
     <div className="w-1/2 flex justify-end">
-      <div className=" bg-main-bg flex justify-between h-11 rounded-xl">
+      <div className="bg-main-bg flex justify-between h-11 rounded-xl shadow-sm">
         <button 
           className="bg-accent-2 text-white rounded-xl px-2 hover:opacity-80 flex items-center"
           data-testid="delete-item-button"
-          onClick={async() => deleteItem(listItem?.id)}
+          onClick={async() => deleteItem(listItem.category_id, listItem?.id)}
           >
           <span className="material-icons text-white">delete</span>
         </button>
@@ -17,7 +17,7 @@ export function ListSelEditController({listItem, updateQuantity, deleteItem}: Pr
           <button 
             className="mx-2 flex items-center p-1 rounded-full hover:bg-grey-traslucid"
             data-testid="update-minus-quantity-button"
-            onClick={() => updateQuantity('addition')}
+            onClick={() => updateQuantity(listItem.category_id, listItem.id, 'substraction')}
             >
             <span className="material-icons text-accent-2">remove</span>
           </button>
@@ -31,7 +31,7 @@ export function ListSelEditController({listItem, updateQuantity, deleteItem}: Pr
           <button 
             className="mx-2 flex items-center p-1 rounded-full hover:bg-grey-traslucid"
             data-testid="update-plus-quantity-button"
-            onClick={() => updateQuantity('substraction')}
+            onClick={() => updateQuantity(listItem.category_id, listItem.id, 'addition')}
             >
             <span className="material-icons text-accent-2">add</span>
           </button>
@@ -43,6 +43,6 @@ export function ListSelEditController({listItem, updateQuantity, deleteItem}: Pr
 
 interface Props {
   listItem: ListItem
-  updateQuantity: (operation: AritmeticOps) => void
-  deleteItem: (id: number) => Promise<void>
+  updateQuantity: (category_id: number, itemSelId: number, operation: AritmeticOps) => void
+  deleteItem: (category_id: number, itemSelId: number) => void
 }
