@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function DisplayErrors({errs}: Props) {
+  
   function formatOutput() {
     if (errs instanceof Object) {
       return  Object.values(errs).map((value, i) => 

@@ -4,8 +4,8 @@ import ItemCard from "../ItemCard/ItemCard"
 import {useItems} from "../../../providers/ItemsProvider"
 import ItemsEndpoints from "../../../services/rest-api/items"
 import { toast } from 'react-toastify'
-import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import { useList } from "../../../providers/ListProvider"
+import ErrorManager from "../../shared/ErrorManager/ErrorManager"
 
 export default function CategoryGroup({ group }: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -19,8 +19,8 @@ export default function CategoryGroup({ group }: Props) {
       setItemDetails(res.data)
       setAsideMode('ItemDetails')
     } catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoading(false)

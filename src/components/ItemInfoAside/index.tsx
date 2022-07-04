@@ -4,9 +4,9 @@ import { useItems } from "../../providers/ItemsProvider"
 import { useList } from "../../providers/ListProvider"
 import ListsEndpoints from "../../services/rest-api/lists"
 import ItemInfoMainContent from "./ItemInfoMainContent/ItemInfoMainContent"
-import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 import { toast } from 'react-toastify'
 import ItemsEndpoints from "../../services/rest-api/items"
+import ErrorManager from "../shared/ErrorManager/ErrorManager"
 
 export default function ItemInfoAside() {
   const [isLoadingAddToList, setIsLoadingAddToList] = React.useState<boolean>(false)
@@ -27,8 +27,8 @@ export default function ItemInfoAside() {
         position: toast.POSITION.BOTTOM_RIGHT,
       })
     } catch(e: any) { 
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingAddToList(false)
@@ -44,8 +44,8 @@ export default function ItemInfoAside() {
         position: toast.POSITION.BOTTOM_RIGHT,
     })
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingDelete(false)
@@ -57,8 +57,8 @@ export default function ItemInfoAside() {
       const res = await ItemsEndpoints.itemsByCategoryGroup()
       setGroups(res.data)
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     }
   }

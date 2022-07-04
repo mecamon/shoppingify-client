@@ -35,12 +35,12 @@ describe('DisplayErrors', () => {
   })
 
   it('Shows the string message when gets an string as error prop', () => {
-    const err = "password must have at least A-Z, a-z and 0-9 characters in it"
+    const errs = "password must have at least A-Z, a-z and 0-9 characters in it"
     
-    const { getAllByTestId } = render(<DisplayErrors errs={err}/>)
+    const { getAllByTestId } = render(<DisplayErrors errs={errs}/>)
     const messageTags = getAllByTestId('err-message')
 
     expect(messageTags.length).toEqual(1)
-    expect(messageTags[0].textContent).toEqual(err)
+    expect(messageTags[0].textContent).toEqual(errs)
   })
 })

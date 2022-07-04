@@ -4,13 +4,13 @@ import ListsEndpoints from "../../services/rest-api/lists"
 import ListAsideMainContent from "./ListAsideMainContent/ListAsideMainContent"
 import BottomBarContent from "./BottomBarContent/BottomBarContent"
 import { toast } from 'react-toastify'
-import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 import { ItemToUpdateInList, ListItem, ListToCreateOrUpdate } from "../../models/models"
 import { useTranslation } from "react-i18next"
 import { AxiosResponse } from "axios"
 import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListContent"
 import BottomBarCompleting from "./BottomBarCompleting/BottomBarCompleting"
 import eventBus from "../../services/event-bus/event-bus"
+import ErrorManager from "../shared/ErrorManager/ErrorManager"
 
 export default function ListAside() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -47,9 +47,9 @@ export default function ListAside() {
       setActive(res.data)
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<DisplayErrors errs={e?.response.data}/>, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        })  
+        toast.error(<ErrorManager error={e}/>, {
+          position: toast.POSITION.BOTTOM_LEFT,
+        })
       } else {
         setActive(null!)
       }
@@ -65,8 +65,8 @@ export default function ListAside() {
       await ListsEndpoints.create(listToCreate)
       await loadActiveList()
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoading(false)
@@ -94,8 +94,8 @@ export default function ListAside() {
       }
       await loadActiveList()
     } catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoading(false)
@@ -117,9 +117,9 @@ export default function ListAside() {
       await loadActiveList()
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<DisplayErrors errs={e?.response.data}/>, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        })  
+        toast.error(<ErrorManager error={e}/>, {
+          position: toast.POSITION.BOTTOM_LEFT,
+        })
       }
     } finally {
       setIsLoadingCompleting(false)
@@ -137,9 +137,9 @@ export default function ListAside() {
       await loadActiveList()
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<DisplayErrors errs={e?.response.data}/>, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        })  
+        toast.error(<ErrorManager error={e}/>, {
+          position: toast.POSITION.BOTTOM_LEFT,
+        })
       }
     } finally {
       setIsLoadingCompleting(false)

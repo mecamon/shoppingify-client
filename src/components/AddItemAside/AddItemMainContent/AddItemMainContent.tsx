@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next"
 import { Category } from "../../../models/models"
 import CategoriesEndpoints from "../../../services/rest-api/categories"
 import CategoriesFound from "../CategoriesFound/CategoriesFound"
-import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import { toast } from "react-toastify"
 import { ItemFormValues } from ".."
+import ErrorManager from "../../shared/ErrorManager/ErrorManager"
 
 export default function AddItemMainContent({formValues, setFormValues}: Props) {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
@@ -50,8 +50,8 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
         setCategoriesSuggested(res.data)
       }
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingCategory(false)
@@ -68,8 +68,8 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
       }))
       setCategoriesSuggested([])
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingCategory(false)

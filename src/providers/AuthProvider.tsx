@@ -14,7 +14,8 @@ export default function AuthProvider({children}: {children: React.ReactElement})
   const contextValue = useMemo(() => ({
     isAuthenticated: authState,
     logout,
-    authenticated
+    authenticated,
+    setAuthState,
   }), [authState])
 
   return (
@@ -38,4 +39,5 @@ export interface AuthContextType {
   isAuthenticated: boolean
   logout: () => void
   authenticated: () => void
+  setAuthState: React.Dispatch<SetStateAction<boolean>>
 }

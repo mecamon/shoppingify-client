@@ -8,6 +8,7 @@ import RegisterForm from "./RegisterForm/RegisterForm"
 import ConfirmationModal from "../shared/ConfirmationModal/ConfirmationModal"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
+import ErrorManager from "../shared/ErrorManager/ErrorManager"
 import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 
 
@@ -20,19 +21,12 @@ export default function LoginPage() {
   const [loginInfoState, setLoginInfoState] = React.useState<LoginInfo>({email: '', password: ''})
   const [registerInfoState, setRegisterInfoState] = React.useState<RegisterInfo>({
     email: '',
-    emailIsValid: null!,
     password: '',
-    passwordIsValid: null!,
+    retypePassword: '',
     name: '',
-    nameIsValid: null!,
     lastname: '',
-    lastnameIsValid: null!,
   })
   const [iShowingConfirmationModal, setIShowingConfirmationModal] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    console.log('FROM LOGIN PAGE....')
-  }, [])
 
   function toggleAuthMode() {
     setIsRegisterMode(prev => !prev)
@@ -43,6 +37,12 @@ export default function LoginPage() {
   }
 
   async function registerNewUser() {
+    if (!passwordsAreEqual()) {
+      toast.error(<DisplayErrors errs={t("passwordsNotEqual")}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
+      })
+      return 
+    }
     setAuthenticatingState(state => ({...state, isLoading: true}))
     try {
       const res = await AccountEndpoints.register({
@@ -56,12 +56,19 @@ export default function LoginPage() {
       navigate('/items')
     } catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
+  }
+
+  function passwordsAreEqual(): boolean {
+    if (registerInfoState.password !== registerInfoState.retypePassword) {
+      return false
+    }
+    return true
   }
 
   async function regularLogin(loginInfo: LoginInfo) {
@@ -73,8 +80,8 @@ export default function LoginPage() {
       navigate('/items')
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
@@ -89,8 +96,8 @@ export default function LoginPage() {
       authenticated()
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
@@ -151,11 +158,8 @@ interface AuthenticatingState {
 
 export interface RegisterInfo {
   email: string
-  emailIsValid: boolean
   password: string
-  passwordIsValid: boolean
+  retypePassword: string
   name: string
-  nameIsValid: boolean
   lastname: string
-  lastnameIsValid: boolean
 }

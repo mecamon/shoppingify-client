@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next"
 import { useList } from "../../providers/ListProvider"
 import ItemsEndpoints from "../../services/rest-api/items"
 import AddItemMainContent from "./AddItemMainContent/AddItemMainContent"
-import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 import SBBottomBarButton from "./SBBottomBarButton/SBBottomBarButton"
 import { toast } from "react-toastify"
 import { useItems } from "../../providers/ItemsProvider"
+import ErrorManager from "../shared/ErrorManager/ErrorManager"
 
 export default function CreateItemAside() {
   const { t } = useTranslation()
@@ -36,8 +36,8 @@ export default function CreateItemAside() {
       cleanUpItemForm()
       loadItems()
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingItem(false)
@@ -68,8 +68,8 @@ export default function CreateItemAside() {
       const res = await ItemsEndpoints.itemsByCategoryGroup()
       setGroups(res.data)
     } catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     }
   }

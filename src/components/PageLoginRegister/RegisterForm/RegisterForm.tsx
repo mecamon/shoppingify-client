@@ -18,6 +18,7 @@ export default function RegisterForm({
   let isValidForm = useMemo(() => {
     return registerInfo.email.length !== 0 &&
         registerInfo.password.length !== 0 && 
+        registerInfo.retypePassword.length !== 0 && 
         registerInfo.name.length !== 0 &&
         registerInfo.lastname.length !== 0
   }, [registerInfo])
@@ -47,6 +48,15 @@ export default function RegisterForm({
           placeholder={t("passwordLabel")}
           value={registerInfo.password}
           onChange={(e) => updateFields({...registerInfo, password: e.target.value})} 
+          className="auth-form-input"
+          />
+        <input 
+          type="password" 
+          name="retype-password" 
+          data-testid="retype-password"
+          placeholder={t("retypePasswordLabel")}
+          value={registerInfo.retypePassword}
+          onChange={(e) => updateFields({...registerInfo, retypePassword: e.target.value})} 
           className="auth-form-input"
           />
         <input 

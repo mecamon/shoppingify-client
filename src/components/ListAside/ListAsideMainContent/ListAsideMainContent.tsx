@@ -12,6 +12,7 @@ import ListsEndpoints from "../../../services/rest-api/lists"
 import { toast } from "react-toastify"
 import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import ToggleEditCompleteButton from "../ToggleEditCompleteButton/ToggleEditCompleteButton"
+import ErrorManager from "../../shared/ErrorManager/ErrorManager"
 
 export default function ListAsideMainContent({updateItems, list, setItemsToDeleteOnClient}: Props) {
   const [listClientData, setListClientData] = React.useState<ListItemsGroupByCategory[]>([])
@@ -69,8 +70,8 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
       await ListsEndpoints.completeSelectedItem({item_sel_id: id})
       await realoadList()
     }catch (e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } finally {
       setIsLoadingCompleting(false)
@@ -82,8 +83,8 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
       const res = await ListsEndpoints.getActive()
       setActive(res.data)
     } catch(e: any) {
-      toast.error(<DisplayErrors errs={e?.response.data}/>, {
-        position: toast.POSITION.BOTTOM_RIGHT,
+      toast.error(<ErrorManager error={e}/>, {
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     }
   }

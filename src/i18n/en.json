@@ -11,6 +11,8 @@
     "searchPlaceholder": "search item",
     "emailLabel": "Email",
     "passwordLabel":"Password",
+    "retypePasswordLabel":"Confirm password",
+    "passwordsNotEqual": "Passwords are not equal",
     "nameLabel": "Name",
     "lastnameLabel": "Lastname",
     "switchToLoginForm": "Switch to login",
@@ -47,6 +49,7 @@
     "cancelListWarning": "Are you sure that you want to cancel this list?",
     "completeListWarning": "Are you sure that you want to complete this list?",
     "listCancelledMessage": "List have been cancelled!",
-    "listCompletedMessage": "List have been completed"
+    "listCompletedMessage": "List have been completed",
+    "loginPromt": "Login to access this area"
   }
 }
