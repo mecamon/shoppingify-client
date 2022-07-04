@@ -45,6 +45,8 @@
     "itemDeletedMessage": "Item was deleted!",
     "changeListNamePlaceholder": "rename list?",
     "cancelListWarning": "Are you sure that you want to cancel this list?",
-    "completeListWarning": "Are you sure that you want to complete this list?"
+    "completeListWarning": "Are you sure that you want to complete this list?",
+    "listCancelledMessage": "List have been cancelled!",
+    "listCompletedMessage": "List have been completed"
   }
 }

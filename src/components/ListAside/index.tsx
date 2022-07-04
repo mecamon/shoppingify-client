@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next"
 import { AxiosResponse } from "axios"
 import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListContent"
 import BottomBarCompleting from "./BottomBarCompleting/BottomBarCompleting"
-import { useModal } from "../../providers/ModalProvider"
+import eventBus from "../../services/event-bus/event-bus"
 
 export default function ListAside() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -18,8 +18,7 @@ export default function ListAside() {
   const [itemsToUpdate, setItemsToUpdate] = React.useState<ItemToUpdateInList[]>([])
   const [itemsToDelete, setItemsToDelete] = React.useState<number[]>([])
 
-  const { active, setActive, isCompleting } = useList()
-  const { setDisplayType } = useModal()
+  const { active, setActive, isCompleting, setIsCompleting, setAsideMode } = useList()
   const { t } = useTranslation()
 
   React.useEffect(() => {
@@ -29,6 +28,16 @@ export default function ListAside() {
       }
     }
     getActiveList()
+    eventBus.on('cancelListConfirmation', (data) => {
+      confirmCancelList()
+    })
+    eventBus.on('completeListConfirmation', (data) => {
+      confirmCompleteList()
+    })
+    return () => {
+      eventBus.remove('cancelListConfirmation', confirmCancelList)
+      eventBus.remove('completeListConfirmation', confirmCompleteList)
+    } 
   }, [])
 
   async function loadActiveList() {
@@ -40,8 +49,10 @@ export default function ListAside() {
       if (e?.response.status !== 404) {
         toast.error(<DisplayErrors errs={e?.response.data}/>, {
           position: toast.POSITION.BOTTOM_RIGHT,
-        })
-      } 
+        })  
+      } else {
+        setActive(null!)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -78,7 +89,9 @@ export default function ListAside() {
       await ListsEndpoints.updateItemInActiveList(itemsToUpdate)
       const requests = createDeleteArray()
       await Promise.all(requests)
-      await ListsEndpoints.updateActiveName({name: renameList})
+      if (renameList !== '') {
+        await ListsEndpoints.updateActiveName({name: renameList})
+      }
       await loadActiveList()
     } catch (e: any) {
       toast.error(<DisplayErrors errs={e?.response.data}/>, {
@@ -93,13 +106,49 @@ export default function ListAside() {
     return itemsToDelete.map(i => ListsEndpoints.deleteSelectedItem(i))
   }
 
-  function cancelList() {
-    console.log('CANCELING LIST....')
-    setDisplayType('CancelList')
+  async function confirmCancelList() {
+    setIsLoadingCompleting(true)
+    try {
+      await ListsEndpoints.cancelActive()
+      toast.success(t("listCancelledMessage"), {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+      resetBottomBars()
+      await loadActiveList()
+    } catch(e: any) {
+      if (e?.response.status !== 404) {
+        toast.error(<DisplayErrors errs={e?.response.data}/>, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        })  
+      }
+    } finally {
+      setIsLoadingCompleting(false)
+    }
   }
 
-  function completeList() {
-    console.log('COMPLETING LIST....')
+  async function confirmCompleteList() {
+    setIsLoadingCompleting(true)
+    try {
+      await ListsEndpoints.completeActive()
+      toast.success(t("listCompletedMessage"), {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      })
+      resetBottomBars()
+      await loadActiveList()
+    } catch(e: any) {
+      if (e?.response.status !== 404) {
+        toast.error(<DisplayErrors errs={e?.response.data}/>, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        })  
+      }
+    } finally {
+      setIsLoadingCompleting(false)
+    }
+  }
+
+  function resetBottomBars() {
+    setAsideMode('List')
+    setIsCompleting(false)
   }
 
   return (
@@ -111,10 +160,7 @@ export default function ListAside() {
       />
       <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
         { isCompleting
-          ? <BottomBarCompleting 
-              cancel={cancelList} 
-              complete={completeList} 
-              isLoading={isLoadingCompleting}/>
+          ? <BottomBarCompleting isLoading={isLoadingCompleting}/>
           : active !== null 
           ? <BottomBarActListContent 
               onClick={saveChangesOnList} 

@@ -1,12 +1,23 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import eventBus from "../services/event-bus/event-bus"
 
 const ModalContext = React.createContext<ModalContextType>(null!)
 
 export function ModalProvider({children}: {children: React.ReactNode}) {
   const [type, setType] = React.useState<ModalType>('none')
   const { t } = useTranslation()
-  
+
+  function confirmListCancelling() {
+    eventBus.dispatch('cancelListConfirmation', {})
+    setType('none')
+  }
+
+  function confirmListCompleting() {
+    eventBus.dispatch('completeListConfirmation', {})
+    setType('none')
+  }
+
   function getModalContent() {
     switch(type) {
       case 'CancelList':
@@ -17,8 +28,16 @@ export function ModalProvider({children}: {children: React.ReactNode}) {
           >close</span>
           <span className="text-2xl text-labels block w-4/5 mb-8">{t("cancelListWarning")}</span>
           <div className="flex justify-end">
-            <button className="mx-1 py-5 px-8 text-base rounded-xl">{t("cancel")}</button>
-            <button className="mx-1 py-5 px-8 text-white bg-warning text-base rounded-xl">{t("yes")}</button>
+            <button 
+              className="mx-1 py-5 px-8 text-base rounded-xl"
+              onClick={() => setType('none')}
+              >{t("cancel")}
+            </button>
+            <button 
+              className="mx-1 py-5 px-8 text-white bg-warning text-base rounded-xl"
+              onClick={confirmListCancelling}
+              >{t("yes")}
+            </button>
           </div>  
         </div>
       case 'CompleteList':
@@ -29,8 +48,14 @@ export function ModalProvider({children}: {children: React.ReactNode}) {
           >close</span>
           <span className="text-2xl text-labels block w-4/5 mb-8">{t("completeListWarning")}</span>
           <div className="flex justify-end">
-            <button className="mx-1 py-5 px-8 text-base rounded-xl">{t("cancel")}</button>
-            <button className="mx-1 py-5 px-8 text-white bg-accent-3 text-base rounded-xl">{t("yes")}</button>
+            <button 
+              className="mx-1 py-5 px-8 text-base rounded-xl"
+              onClick={() => setType('none')}
+              >{t("cancel")}</button>
+            <button 
+              className="mx-1 py-5 px-8 text-white bg-accent-3 text-base rounded-xl"
+              onClick={confirmListCompleting}
+              >{t("yes")}</button>
           </div>  
         </div>
       default:
