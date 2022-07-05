@@ -37,9 +37,6 @@ export function PageHistory() {
   return ( 
     <>
       <div id="main-content-container" className="mx-3 lg:mx-8 xl:mx-12 2xl:mx-24 mt-8">
-        <div id="head" className="flex justify-between">
-          <h2 className="text-2xl hidden lg:block lg:w-3/5 font-bold text-labels">{t("shoppingHistory")}</h2>
-        </div>
         {
           oldLists === null &&
           <div className="mt-9">

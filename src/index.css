@@ -57,6 +57,10 @@ button:disabled, input:disabled {
   @apply  h-40 border-2 border-disabled outline-none focus:border-accent-2 rounded-xl text-lg;
 }
 
+.item-card {
+ @apply bg-white flex justify-between p-3.5 rounded-xl shadow-card;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;

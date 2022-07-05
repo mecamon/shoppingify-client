@@ -56,7 +56,7 @@ export default function ItemCard({item, selectItem}: Props) {
   return (
     <div
       data-testid="card-body"
-      className="bg-white hover:bg-gray-100 cursor-pointer flex justify-between p-3.5 rounded-xl shadow-card"
+      className="item-card hover:bg-gray-100 cursor-pointer"
       onClick={async() => selectItem(item.id)}
       >
       <span data-testid="name" className="block text-base text-bubble-label">{item.name}</span>

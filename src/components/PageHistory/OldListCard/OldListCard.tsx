@@ -30,7 +30,7 @@ export default function OldListCard({oldList}: Props) {
   return (
     <div className="flex items-center mb-7">
       <button 
-        className="w-full flex items-center justify-between hover:scale-101 p-5 bg-white rounded-xl shadow-card transition-all duration-200 ease-in"
+        className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between hover:scale-101 p-5 bg-white rounded-xl shadow-card transition-all duration-200 ease-in"
         onClick={async() => getListInfo()}
         disabled={isLoading}
         >

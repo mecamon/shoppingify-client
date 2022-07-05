@@ -41,7 +41,7 @@ export interface ItemDetailed {
 export interface GroupOfItemsByCat {
   category_id: number
   category_name: string
-  items: Item[]
+  items: any[]
 }
 
 export interface CreateItem {

@@ -1,8 +1,20 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { List, OldList } from '../../../models/models'
+import HistoryProvider from '../../../providers/HistoryProvider'
 import { SeletedList } from './SelectedList'
 
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str:any) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}))
 
 describe('SelectedList', () => {
   let selectedList: List = {
@@ -42,7 +54,11 @@ describe('SelectedList', () => {
     ]
   }
   it('finds the list name, categories and items in the dom', () => {
-    const { getAllByTestId, getByTestId } = render(<SeletedList selectedList={selectedList} />)
+    const { getAllByTestId, getByTestId } = render(
+      <HistoryProvider>
+        <SeletedList selectedList={selectedList} />
+      </HistoryProvider>
+    )
 
     const listName = getByTestId('list-name')
     const categories = getAllByTestId('category')
