@@ -23,7 +23,7 @@
     "warning": "Please notice!",
     "addItem": "Add item",
     "sbItemMessage": "Didn't find what you need?",
-    "noItems": "No items",
+    "noItems": "No items. Select one from the items group.",
     "saveButtonLabel": "Save",
     "enterName": "Enter a name",
     "createANewList": "Enter new list name",
@@ -68,6 +68,8 @@
     "dec": "December",
     "completed": "completed",
     "cancelled": "cancelled",
-    "noListInHistory": "No lists in the history yet"
+    "noListInHistory": "No lists in the history yet",
+    "topItems": "Top items",
+    "topCategories": "Top categories"
   }
 }

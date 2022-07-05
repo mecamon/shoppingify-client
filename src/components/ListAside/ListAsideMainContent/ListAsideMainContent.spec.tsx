@@ -56,7 +56,7 @@ describe('ListItemsSB', () => {
         />
       </ListProvider>
       )
-    const noActiveListMessage = getByTestId("no-active-list")
+    const noActiveListMessage = getByTestId("no-list")
     expect(noActiveListMessage).toBeInTheDocument()
   })
 })

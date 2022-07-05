@@ -95,10 +95,17 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
         <img className="absolute top-0" src={Bottle} alt="bottle icon" />
         <AddItemTopArea />
       </div>
-      { (list?.items?.length === 0 || !list?.items || list === null)
+      { (list === null)
           ? <div className="relative w-full h-3/4 flex flex-col items-center px-4">
               <img className="absolute bottom-24 z-50" src={CartGirl} alt="girl with cart" />
-              <div className="flex justify-center items-center h-full mb-40">
+              <div className="flex justify-center items-center h-full mb-40 mx-3 sm:mx-10">
+                <span data-testid="no-list">{ t("noListCreated") }</span> 
+              </div>
+            </div>
+          : list?.items?.length === 0 || !list?.items
+          ? <div className="relative w-full h-3/4 flex flex-col items-center px-4">
+              <img className="absolute bottom-24 z-50" src={CartGirl} alt="girl with cart" />
+              <div className="flex justify-center items-center h-full mb-40 mx-3 sm:mx-10">
                 <span data-testid="no-items">{ t("noItems") }</span> 
               </div>
             </div>

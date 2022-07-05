@@ -27,7 +27,8 @@ module.exports = {
         'traslucid': 'rgba(255, 255, 255, 0.6)',
         'grey-traslucid': 'rgba(230, 230, 230, 0.8)',
         'effect-bg': '#f2f2f2',
-        'autocomplete': '#828282'
+        'autocomplete': '#828282',
+        'percentage-line': '#E0E0E0'
       },
       boxShadow: {
         'card': '0px 1px 4px 1px rgba(0, 0, 0, 0.1)'

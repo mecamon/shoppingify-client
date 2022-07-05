@@ -26,7 +26,7 @@ export default function NavBar({toggleSideBarOnMobile}: Props) {
           />
           <NavItem
               icon={<span className="material-icons text-icons text-2xl text-center w-full">insert_chart_outlined</span>}
-              path="/statistic"
+              path="/items/statistics"
               dataTestId="statistics-nav"
               label="Statistics"
           />

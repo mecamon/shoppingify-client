@@ -14,6 +14,7 @@ import ListProvider from './providers/ListProvider'
 import { ModalProvider } from './providers/ModalProvider'
 import { PageHistory } from './components/PageHistory'
 import HistoryProvider from './providers/HistoryProvider'
+import PageStats from './components/PageStats'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
                       <Route index element={<ItemsPage/>}/>
                       <Route path="history" element={<PageHistory />} />
+                      <Route path="statistics" element={<PageStats />} />
                     </Route>
                     <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
                   </Route>

@@ -18,13 +18,10 @@ jest.mock('react-i18next', () => ({
 describe('RegisterForm', () => {
   let registerInfo: RegisterInfo = {
     email: '',
-    emailIsValid: null!,
     password: '',
-    passwordIsValid: null!,
+    retypePassword: '',
     name: '',
-    nameIsValid: null!,
     lastname: '',
-    lastnameIsValid: null!,
   } 
   let updateFields = jest.fn()
   let registerNewUser = jest.fn()
