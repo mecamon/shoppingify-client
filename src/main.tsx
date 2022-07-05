@@ -11,8 +11,9 @@ import Layout from './components/shared/Layout'
 import ItemsProvider from './providers/ItemsProvider'
 import RedirectOnLogged from './providers/RedirectOnLogged'
 import ListProvider from './providers/ListProvider'
-import { PageHistory } from './components/PageHistory/PageHistory'
 import { ModalProvider } from './providers/ModalProvider'
+import { PageHistory } from './components/PageHistory'
+import HistoryProvider from './providers/HistoryProvider'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
@@ -20,17 +21,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <ListProvider>
           <ItemsProvider>
-            <ModalProvider>
-              <Routes>
-                <Route path='/' element={<App />}>
-                  <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
-                    <Route index element={<ItemsPage/>}/>
-                    <Route path="history" element={<PageHistory />} />
+            <HistoryProvider>
+              <ModalProvider>
+                <Routes>
+                  <Route path='/' element={<App />}>
+                    <Route path="items" element={<RequiresAuth><Layout/></RequiresAuth>}>
+                      <Route index element={<ItemsPage/>}/>
+                      <Route path="history" element={<PageHistory />} />
+                    </Route>
+                    <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
                   </Route>
-                  <Route index element={<RedirectOnLogged><LoginPage /></RedirectOnLogged>} />
-                </Route>
-              </Routes>
-            </ModalProvider>
+                </Routes>
+              </ModalProvider>
+            </HistoryProvider>
           </ItemsProvider>
         </ListProvider>
       </AuthProvider>

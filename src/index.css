@@ -75,6 +75,11 @@ button:disabled, input:disabled {
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #fff transparent transparent transparent;
 }
+.lds-accent-ring div {
+  border: 3px solid var(--accent-color-2);
+  border-radius: 50%;
+  border-color: var(--accent-color-2) transparent transparent transparent;
+}
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
@@ -91,4 +96,22 @@ button:disabled, input:disabled {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.card-skeleton {
+  background: linear-gradient(-45deg, #dfdfdf, #d9d9d9, #b9b9b9, #ababab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }

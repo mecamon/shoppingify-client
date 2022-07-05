@@ -89,6 +89,12 @@ export interface OldList {
   name: string
 }
 
+export interface ListGroupByMonth {
+  month_number: string
+  year: string
+  oldList: OldList[]
+}
+
 export interface SelectedItemInfo {
   item_sel_id: number
 }

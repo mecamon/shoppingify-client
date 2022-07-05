@@ -34,6 +34,9 @@ module.exports = {
       },
       minWidth: {
         'details-sb-button': '128px',
+      },
+      scale: {
+        '101': '1.01',
       }
     },
   },

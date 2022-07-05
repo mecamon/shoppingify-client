@@ -1,10 +1,22 @@
-import React from "react";
+import React from "react"
 import { render, fireEvent } from '@testing-library/react'
-import ItemCard from "./ItemCard";
-import {Item} from "../../../models/models";
+import ItemCard from "./ItemCard"
+import {Item} from "../../../models/models"
+import ListProvider from "../../../providers/ListProvider"
+
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str:any) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}))
 
 describe('ItemCard', () => {
-
   const item: Item = {
     id: 1234,
     name: "Apple",
@@ -16,13 +28,20 @@ describe('ItemCard', () => {
   })
 
   it('finds the prop name in the card text',  () => {
-    const { getByTestId } = render(<ItemCard item={item} selectItem={selectItem} />)
+    const { getByTestId } = render(
+    <ListProvider>
+      <ItemCard item={item} selectItem={selectItem} />
+    </ListProvider> )
     const itemName = getByTestId('name')
     expect(itemName.textContent).toBe(item.name)
   })
 
   it('it triggers the selectItem function on click',  () => {
-    const { getByTestId } = render(<ItemCard item={item} selectItem={selectItem} />)
+    const { getByTestId } = render(
+    <ListProvider>
+      <ItemCard item={item} selectItem={selectItem} />
+    </ListProvider>
+    )
     const cardEl = getByTestId('card-body')
     fireEvent.click(cardEl)
     expect(selectItem).toHaveBeenCalledTimes(1)

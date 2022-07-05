@@ -15,9 +15,9 @@ export default function ItemsProvider({children}: {children: React.ReactNode}) {
   }), [groups, itemDetails])
 
   return (
-      <ItemsContext.Provider value={ contextValue }>
-        { children }
-      </ItemsContext.Provider>
+    <ItemsContext.Provider value={ contextValue }>
+      { children }
+    </ItemsContext.Provider>
   )
 }
 

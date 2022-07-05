@@ -7,6 +7,7 @@ import ItemInfoMainContent from "./ItemInfoMainContent/ItemInfoMainContent"
 import { toast } from 'react-toastify'
 import ItemsEndpoints from "../../services/rest-api/items"
 import ErrorManager from "../shared/ErrorManager/ErrorManager"
+import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
 
 export default function ItemInfoAside() {
   const [isLoadingAddToList, setIsLoadingAddToList] = React.useState<boolean>(false)
@@ -16,6 +17,12 @@ export default function ItemInfoAside() {
   const { active, setAsideMode } = useList()
 
   async function addToList() {
+    if (active === null) {
+      toast.error(<DisplayErrors errs={t("noActiveList")} />, 
+        {position: toast.POSITION.BOTTOM_LEFT}
+      )
+      return
+    }
     setIsLoadingAddToList(true)
     try {
       await ListsEndpoints.addItemToActive({
@@ -24,7 +31,7 @@ export default function ItemInfoAside() {
         quantity: 1,
       })
       toast.success(t("itemAddedMessage"), {
-        position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT,
       })
     } catch(e: any) { 
       toast.error(<ErrorManager error={e}/>, {
@@ -41,7 +48,7 @@ export default function ItemInfoAside() {
       await ItemsEndpoints.deleteById(itemDetails.id)
       await reloadItems()
       toast.success(t("itemDeletedMessage"), {
-        position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT,
     })
     } catch(e: any) {
       toast.error(<ErrorManager error={e}/>, {

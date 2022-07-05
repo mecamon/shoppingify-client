@@ -111,7 +111,7 @@ export default function ListAside() {
     try {
       await ListsEndpoints.cancelActive()
       toast.success(t("listCancelledMessage"), {
-        position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT,
       })
       resetBottomBars()
       await loadActiveList()
@@ -131,7 +131,7 @@ export default function ListAside() {
     try {
       await ListsEndpoints.completeActive()
       toast.success(t("listCompletedMessage"), {
-        position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT,
       })
       resetBottomBars()
       await loadActiveList()
@@ -171,7 +171,7 @@ export default function ListAside() {
           : <BottomBarContent 
               onClick={createList} 
               isLoading={isLoading} 
-              placeholder={t("enterName")} buttonLabel={t("createList")}
+              placeholder={t("createANewList")} buttonLabel={t("createList")}
               />
         }
       </div>
