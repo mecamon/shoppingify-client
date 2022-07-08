@@ -1,7 +1,7 @@
 import React from "react"
 import { TopCategory, TopItem } from "../../../models/models"
 
-export default function ItemPercentage({topItem}: Props) {
+export default function ItemPercentage({topItem, barColor}: Props) {
   return (
     <>
       <div className="flex justify-between mb-2 mt-7">
@@ -15,7 +15,7 @@ export default function ItemPercentage({topItem}: Props) {
           style={{
           width: `${topItem.percentage}%`,
           height: '100%',
-          backgroundColor: '#F9A109',
+          backgroundColor: barColor,
           borderRadius: '0.5rem'
         }}>
         </div>
@@ -26,4 +26,5 @@ export default function ItemPercentage({topItem}: Props) {
 
 interface Props {
   topItem: TopCategory | TopItem
+  barColor: string
 }

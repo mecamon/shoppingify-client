@@ -1,3 +1,5 @@
+import ItemCard from "../components/PageItems/ItemCard/ItemCard"
+
 export interface AuthInfo {
   email: string
   lastname: string
@@ -118,4 +120,25 @@ export interface TopItem {
   name: string
   percentage: number
   sum_quantity: number
+}
+
+export interface ItemsSummaryByMonth {
+  months: [
+    {
+      id: number
+      month: number
+      quantity: number
+    }
+  ],
+  year: number
+}
+
+export interface ItemSummaryByYear {
+  quantity: number
+  year: number
+}
+
+export interface DataForGraph {
+  x: any
+  y: any
 }

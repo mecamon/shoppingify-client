@@ -70,6 +70,11 @@
     "cancelled": "cancelled",
     "noListInHistory": "No lists in the history yet",
     "topItems": "Top items",
-    "topCategories": "Top categories"
+    "topCategories": "Top categories",
+    "items": "Items",
+    "months": "Months",
+    "years": "Years",
+    "monthlySum": "Monthy Summary",
+    "yearlySum": "Yearly Summary"
   }
 }
