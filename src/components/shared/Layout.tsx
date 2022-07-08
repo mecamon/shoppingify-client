@@ -47,7 +47,7 @@ export default function Layout() {
   }
 
   return (
-    <div id="container" className="flex">
+    <div id="container" className="h-screen">
       { displayingType !== 'none' &&
         <ConfirmationModal>
           {getModalContent()}
@@ -56,28 +56,26 @@ export default function Layout() {
       <header className="h-screen w-16">
         <NavBar toggleSideBarOnMobile={() => setIsShowingCart(prev => !prev)} />
       </header>
-      <div className="w-full flex">
-        <main
-           className={ !isMobileMode 
-            ? "bg-main-bg w-full md:w-3/5 xl:w-8/12 2xl:w-9/12"
-            : !isShowingCart 
-            ? "bg-main-bg w-full block"
-            : "bg-main-bg w-full hidden"
-          }
-          >
-          <Outlet/>
-        </main>
-        <aside 
+      <main
           className={ !isMobileMode 
-            ? "relative h-full w-full md:w-2/5 xl:w-4/12 2xl:w-3/12"
-            : isShowingCart
-            ? "relative h-full w-full block"
-            : "relative h-full w-full hidden"
-          }
-          >
-          {currentAsideBar()}
-        </aside>
-      </div>
+          ? "layout-main"
+          : !isShowingCart 
+          ? "layout-main block"
+          : "layout-main hidden"
+        }
+        >
+        <Outlet/>
+      </main>
+      <aside 
+        className={ !isMobileMode 
+          ? "layout-aside"
+          : isShowingCart
+          ? "layout-aside block"
+          : "layout-aside hidden"
+        }
+        >
+        {currentAsideBar()}
+      </aside>
     </div>
   )
 }

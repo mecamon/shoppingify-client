@@ -24,6 +24,53 @@ textarea {
   resize: none;
 }
 
+#container > header {
+  float: left;
+  width: 4rem;
+  height: 100%;
+}
+.layout-main {
+  float:left;
+  width: calc(100% - 4rem);
+  height: 100%;
+  overflow-y: auto;
+  @apply bg-main-bg;
+}
+.layout-aside {
+  position: relative;
+  float:left;
+  width: calc(100% - 4rem);
+  height: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .layout-main {
+    width: calc((100% - 4rem) * 0.6);
+  }
+  .layout-aside {
+    width: calc((100% - 4rem) * 0.4);
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .layout-main {
+    width: calc((100% - 4rem) * 0.66);
+    overflow-y: auto;
+  }
+  .layout-aside {
+    width: calc((100% - 4rem) * 0.34);
+  }
+}
+
+@media only screen and (min-width: 1536px) {
+  .layout-main {
+    width: calc((100% - 4rem) * 0.70);
+  }
+  .layout-aside {
+    width: calc((100% - 4rem) * 0.30);
+  }
+}
+
 .auth-form-container {
   @apply mx-auto shadow-lg relative bg-menu-bg w-4/5 md:w-3/5 lg:w-2/5 2xl:w-1/5 py-12 rounded-xl;
 }
