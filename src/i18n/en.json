@@ -75,6 +75,7 @@
     "months": "Months",
     "years": "Years",
     "monthlySum": "Monthy Summary",
-    "yearlySum": "Yearly Summary"
+    "yearlySum": "Yearly Summary",
+    "confirmLogout": "Are you sure you want to logout?"
   }
 }

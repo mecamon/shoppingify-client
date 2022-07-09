@@ -12,4 +12,4 @@ const eventBus = {
 
 export default eventBus;
 
-export type CustomEvents = 'cancelListConfirmation' | 'completeListConfirmation'
+export type CustomEvents = 'cancelListConfirmation' | 'completeListConfirmation' | 'confirmLogout'

@@ -3,9 +3,12 @@ import React from "react"
 import Logo from "../../../assets/logo.svg"
 import NavItem from "../NavItem/NavItem";
 import { useList } from "../../../providers/ListProvider";
+import { useModal } from "../../../providers/ModalProvider";
 
 export default function NavBar({toggleSideBarOnMobile}: Props) {
   const { active } = useList()
+  const { setDisplayType } = useModal()
+
   return (
       <nav className="flex flex-col justify-between items-center h-full w-full py-8">
         <NavLink to="/">
@@ -31,17 +34,22 @@ export default function NavBar({toggleSideBarOnMobile}: Props) {
               label="Statistics"
           />
         </ul>
-        <div className="relative w-full h-24 flex flex-col justify-center items-center">
-          <span
-              className="absolute top-3 right-3 text-white block px-1.5 py-0.5 rounded-sm text-xs bg-warning" 
-              data-testid="item-count" 
-            >{active?.items?.length ?? 0}</span>
-          <button 
-            data-testid="cart" 
-            className="bg-accent-2 h-10 w-10 rounded-full"
-            onClick={() => toggleSideBarOnMobile()}
-            >
-            <span className="material-icons text-white mx-auto my-auto">shopping_cart</span>
+        <div className="flex flex-col items-center">
+          <div className="relative w-full h-24 flex flex-col justify-center items-center">
+            <span
+                className="absolute top-3 right-3 text-white block px-1.5 py-0.5 rounded-sm text-xs bg-warning" 
+                data-testid="item-count" 
+              >{active?.items?.length ?? 0}</span>
+            <button 
+              data-testid="cart" 
+              className="bg-accent-2 h-10 w-10 rounded-full"
+              onClick={() => toggleSideBarOnMobile()}
+              >
+              <span className="material-icons text-white mx-auto my-auto">shopping_cart</span>
+            </button>
+          </div>
+          <button onClick={() => setDisplayType('Logout')}>
+            <span className="material-icons text-warning font-bold text-3xl">power_settings_new</span>
           </button>
         </div>
       </nav>
