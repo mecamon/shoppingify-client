@@ -2,14 +2,29 @@ import {fireEvent, render} from '../../../../__mocks__/router-utils'
 import NavBar from "./NavBar"
 import React from "react";
 import ListProvider from '../../../providers/ListProvider';
+import { ModalProvider } from '../../../providers/ModalProvider';
+
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str:any) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}))
 
 describe('NavBar', () => {
   let toggleSideBarOnMobile = jest.fn()
   it('finds the nav items', () => {
     const {getByTestId} = render(
-      <ListProvider>
-        <NavBar toggleSideBarOnMobile={toggleSideBarOnMobile} />
-      </ListProvider>
+      <ModalProvider>
+        <ListProvider>
+          <NavBar toggleSideBarOnMobile={toggleSideBarOnMobile} />
+        </ListProvider>
+      </ModalProvider>
     )
 
     const items = getByTestId('items-nav')
@@ -29,9 +44,11 @@ describe('NavBar', () => {
 
   it('triggers the "toggleSideBarOnMobile" when clicking the cart', () => {
     const {getByTestId} = render(
-      <ListProvider>
-        <NavBar toggleSideBarOnMobile={toggleSideBarOnMobile} />
-      </ListProvider>
+      <ModalProvider>
+        <ListProvider>
+          <NavBar toggleSideBarOnMobile={toggleSideBarOnMobile} />
+        </ListProvider>
+      </ModalProvider>
     )
     const cartButton = getByTestId('cart')
     fireEvent.click(cartButton)

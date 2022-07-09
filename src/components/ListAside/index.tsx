@@ -10,7 +10,6 @@ import { AxiosResponse } from "axios"
 import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListContent"
 import BottomBarCompleting from "./BottomBarCompleting/BottomBarCompleting"
 import eventBus from "../../services/event-bus/event-bus"
-import ErrorManager from "../shared/ErrorManager/ErrorManager"
 import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function ListAside() {
@@ -29,14 +28,12 @@ export default function ListAside() {
         await loadActiveList()
       }
     }
+    console.log('ADDING EVENTS!!!!')
     getActiveList()
-    eventBus.on('cancelListConfirmation', (data) => {
-      confirmCancelList()
-    })
-    eventBus.on('completeListConfirmation', (data) => {
-      confirmCompleteList()
-    })
+    eventBus.on('cancelListConfirmation', confirmCancelList)
+    eventBus.on('completeListConfirmation', confirmCompleteList)
     return () => {
+      console.log('REMOVING EVENTS!!!!')
       eventBus.remove('cancelListConfirmation', confirmCancelList)
       eventBus.remove('completeListConfirmation', confirmCompleteList)
     } 
@@ -139,7 +136,6 @@ export default function ListAside() {
   }
 
   function resetBottomBars() {
-    setAsideMode('List')
     setIsCompleting(false)
   }
 

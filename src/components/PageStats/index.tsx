@@ -16,7 +16,7 @@ export default function PageStats() {
   const [summaryByMonth, setSummaryByMonth] = React.useState<ItemsSummaryByMonth>(null!)
   const [isLoadingSumByMonth, setIsLoadingSumBymonth] = React.useState<boolean>(false)
   const [summaryByYear, setSummaryByYear] = React.useState<ItemSummaryByYear[]>(null!)
-  const [isLoadingSumByYear, setIsloadingSumByYear] = React.useState<boolean>(null!)
+  const [isLoadingSumByYear, setIsloadingSumByYear] = React.useState<boolean>(false)
 
   const { t } = useTranslation()
   const { httpError } = useErrorHandler()
@@ -88,37 +88,51 @@ export default function PageStats() {
         <div className="w-full flex flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 px-4 lg:px-8">
             <h2 className="text-2xl">{t("topItems")}</h2>
-            <div className="mt-8">
-              { topItems?.map(i => <ItemPercentage key={i.id} topItem={i} barColor="#F9A109" /> ) }  
-            </div>
+            { isLoadingTopItems 
+              ? <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              : <div className="mt-8">
+                  { topItems?.map(i => <ItemPercentage key={i.id} topItem={i} barColor="#F9A109" /> ) }  
+                </div>
+            }
           </div>
           <div className="w-full lg:w-1/2 px-4 lg:px-8 mt-10 lg:mt-0">
             <h2 className="text-2xl">{t("topCategories")}</h2>
-            <div className="mt-8">
-              { topCategories?.map(c => <ItemPercentage key={c.id} topItem={c} barColor="#56CCF2" /> ) }
-            </div>
+            { isLoadingTopCat
+              ? <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              : <div className="mt-8">
+                  { topCategories?.map(c => <ItemPercentage key={c.id} topItem={c} barColor="#56CCF2" /> ) }
+                </div>
+            }
           </div>
         </div>
         <div>
           {/* BY MONTH */}
-          { summaryByMonth !== null &&
-            <div className="mt-14">
-              <h2 className="text-2xl mx-10 mb-5">{t("monthlySum")}</h2>
-              <CustomLineGraph 
-              dataForGraps={ summaryByMonth.months.map(m => ({x: m.month, y: m.quantity}))} 
-              xDataKey={t("months")} 
-              lineDataKey={t("items")} />
-            </div>
+          { isLoadingSumByMonth 
+            ? <div className="mt-14">
+                <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              </div>
+            : summaryByMonth !== null &&
+              <div className="mt-14">
+                <h2 className="text-2xl mx-10 mb-5">{t("monthlySum")}</h2>
+                <CustomLineGraph 
+                dataForGraps={ summaryByMonth.months.map(m => ({x: m.month, y: m.quantity}))} 
+                xDataKey={t("months")} 
+                lineDataKey={t("items")} />
+              </div>
           }
           {/* BY YEAR */}
-          { summaryByYear !== null &&
-            <div className="mt-14">
-              <h2 className="text-2xl mx-10 mb-5">{t("yearlySum")}</h2>
-              <CustomLineGraph 
-              dataForGraps={ summaryByYear.map(m => ({x: m.year, y: m.quantity}))} 
-              xDataKey={t("years")} 
-              lineDataKey={t("items")} />
-            </div>
+          { isLoadingSumByYear 
+            ? <div className="mt-14">
+                <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              </div>
+            : summaryByYear !== null &&
+              <div className="mt-14">
+                <h2 className="text-2xl mx-10 mb-5">{t("yearlySum")}</h2>
+                <CustomLineGraph 
+                dataForGraps={ summaryByYear.map(m => ({x: m.year, y: m.quantity}))} 
+                xDataKey={t("years")} 
+                lineDataKey={t("items")} />
+              </div>
           }
         </div>
       </div>

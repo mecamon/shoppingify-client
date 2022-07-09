@@ -2,13 +2,12 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 
 export default function SearchBar({fullTextSearch}: Props) {
+  const [value, setValue] = React.useState<string>('')
   const { t } = useTranslation()
 
-  function searchLike(e: any) {
-    const value: string = e.target.value
-    if (value.length > 2) {
-      fullTextSearch()
-    }
+  async function searchLike(value: string) {
+    setValue(value)
+    await fullTextSearch(value)
   }
 
   return (
@@ -21,12 +20,13 @@ export default function SearchBar({fullTextSearch}: Props) {
           name="search"
           autoComplete="off"
           data-testid="search-input"
-          onInput={(e) => searchLike(e)}
+          value={value}
+          onChange={async e => searchLike(e.target.value)}
       />
     </>
   )
 }
 
 interface Props {
-  fullTextSearch: Function
+  fullTextSearch: (value: string) => Promise<void>
 }

@@ -27,7 +27,7 @@ describe('SearchBar', () => {
     fullTextSearch.mockClear()
   })
 
-  it('triggers the fulltext search function on input > 2',  () => {
+  it('triggers the fulltext search function on change',  () => {
       const { getByTestId } = render(<SearchBar fullTextSearch={ fullTextSearch } />)
       const inputSearch = getByTestId('search-input') as HTMLInputElement
 
@@ -35,15 +35,5 @@ describe('SearchBar', () => {
 
       expect(inputSearch).toBeInTheDocument()
       expect(fullTextSearch).toHaveBeenCalled()
-  });
-
-  it('does NOT trigger the fulltext search function on input < 3',  () => {
-    const { getByTestId } = render(<SearchBar fullTextSearch={ fullTextSearch } />)
-    const inputSearch = getByTestId('search-input') as HTMLInputElement
-
-    fireEvent.input(inputSearch, {target: {value: 'ne'}})
-
-    expect(inputSearch).toBeInTheDocument()
-    expect(fullTextSearch).not.toHaveBeenCalled()
   });
 })

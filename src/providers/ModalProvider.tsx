@@ -1,6 +1,5 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import ModalLayout from "../components/shared/ModalLayout"
 import eventBus from "../services/event-bus/event-bus"
 
 const ModalContext = React.createContext<ModalContextType>(null!)
@@ -20,6 +19,7 @@ export function ModalProvider({children}: {children: React.ReactNode}) {
   }
 
   function confirmLogout() {
+    console.log('LOGGING OUT')
     eventBus.dispatch('confirmLogout', {})
     setType('none')
   }

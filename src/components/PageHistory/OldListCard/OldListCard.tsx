@@ -42,7 +42,9 @@ export default function OldListCard({oldList}: Props) {
               data-testid="status-completed">{ t("completed") }</span>
           }
           { oldList.is_cancelled &&
-            <span data-testid="status-cancelled">{ t("cancelled") }</span>
+            <span 
+              className="block border border-warning text-warning text-xs mx-5 p-1 rounded-lg"
+              data-testid="status-cancelled">{ t("cancelled") }</span>
           }
           <span className="material-icons text-accent-2 text-4xl">chevron_right</span>
         </div>

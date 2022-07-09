@@ -11,7 +11,7 @@ export function useErrorHandler() {
       localStorage.removeItem('token')
       setAuthState(false)
     } else {
-      toast.error(<DisplayErrors errs={error?.reponse.data}/>, {
+      toast.error(<DisplayErrors errs={error?.response.data}/>, {
         position: toast.POSITION.BOTTOM_LEFT,
       })
     }

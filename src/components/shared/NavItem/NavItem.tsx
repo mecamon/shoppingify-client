@@ -14,6 +14,7 @@ export default function NavItem({icon, path, dataTestId, label}: Props) {
           onMouseLeave={() => setLabelStyles({display: 'none'})}
           >
         <NavLink
+            end
             to={path}
             className={({isActive}) => isActive ? styles.customActiveLinks : styles.customLinks }
             >
