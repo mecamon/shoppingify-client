@@ -63,7 +63,7 @@ This is a fullstack site created to fulfill a challenge in the site: [devchallen
 ![Deleting item](./src/assets/gifs/deleting-item.gif)
 
 * Creating list and adding items
-![Creating list and adding items](./assets/gifs/creating-list-and-adding.gif)
+![Creating list and adding items](./src/assets/gifs/creating-list-and-adding.gif)
 
 * Editing list
 ![Editing list](./src/assets/gifs/editing-list.gif)

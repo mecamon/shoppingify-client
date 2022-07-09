@@ -46,7 +46,7 @@ export default function ItemInfoAside() {
     setIsLoadingDelete(true)
     try {
       await ItemsEndpoints.deleteById(itemDetails.id)
-      await getItems()
+      await getItems('')
       toast.success(t("itemDeletedMessage"), {
         position: toast.POSITION.BOTTOM_LEFT,
     })
