@@ -10,18 +10,16 @@ export default function ToggleEditCompleteButton() {
     <div>
       { !isCompleting  
         ? <button 
-            className="flex items-center rounded-3xl bg-traslucid hover:bg-accent-3 hover:text-white h-10 px-4"
+            className="flex items-center rounded-3xl hover:opacity-90 bg-accent-3 text-white h-10 px-8 transition-colors duration-200 ease-in"
             onClick={() => setIsCompleting(prev => !prev)}
           >
             {t("check")}
-            <span className="ml-2 material-icons text-labels text-2xl">done</span>
           </button>
         :  <button 
-          className="flex items-center rounded-3xl bg-traslucid h-10 px-4"
-          onClick={() => setIsCompleting(prev => !prev)}
+            className="flex items-center rounded-3xl hover:opacity-90 bg-accent-3 text-white  h-10 px-8 transition-colors duration-200 ease-in"
+            onClick={() => setIsCompleting(prev => !prev)}
           >
           {t("edit")}
-          <span className="ml-2 material-icons text-labels text-2xl">edit</span>
         </button>
       }
     </div> 

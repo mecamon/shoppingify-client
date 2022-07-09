@@ -36,6 +36,9 @@ module.exports = {
       minWidth: {
         'details-sb-button': '128px',
       },
+      minHeight: {
+        'items-container': '720px',
+      },
       scale: {
         '101': '1.01',
       }

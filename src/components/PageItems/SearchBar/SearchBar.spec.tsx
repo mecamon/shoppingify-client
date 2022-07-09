@@ -1,5 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "../../../../__mocks__/router-utils"
+import AuthProvider from "../../../providers/AuthProvider";
+import ItemsProvider from "../../../providers/ItemsProvider";
 import SearchBar from "./SearchBar";
 
 
@@ -28,12 +30,17 @@ describe('SearchBar', () => {
   })
 
   it('triggers the fulltext search function on change',  () => {
-      const { getByTestId } = render(<SearchBar fullTextSearch={ fullTextSearch } />)
+      const { getByTestId } = render(
+        <AuthProvider>
+          <ItemsProvider>
+            <SearchBar />
+          </ItemsProvider>
+        </AuthProvider>
+        )
       const inputSearch = getByTestId('search-input') as HTMLInputElement
 
       fireEvent.input(inputSearch, {target: {value: 'new search'}})
 
       expect(inputSearch).toBeInTheDocument()
-      expect(fullTextSearch).toHaveBeenCalled()
   });
 })

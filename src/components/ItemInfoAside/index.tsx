@@ -14,7 +14,7 @@ export default function ItemInfoAside() {
   const [isLoadingDelete, setIsLoadingDelete] = React.useState<boolean>(false)
 
   const { t } = useTranslation()
-  const { itemDetails, setGroups } = useItems()
+  const { itemDetails, getItems } = useItems()
   const { active, setAsideMode } = useList()
   const { httpError } = useErrorHandler()
 
@@ -46,7 +46,7 @@ export default function ItemInfoAside() {
     setIsLoadingDelete(true)
     try {
       await ItemsEndpoints.deleteById(itemDetails.id)
-      await reloadItems()
+      await getItems()
       toast.success(t("itemDeletedMessage"), {
         position: toast.POSITION.BOTTOM_LEFT,
     })
@@ -54,15 +54,6 @@ export default function ItemInfoAside() {
       httpError(e)
     } finally {
       setIsLoadingDelete(false)
-    }
-  }
-
-  async function reloadItems() {
-    try {
-      const res = await ItemsEndpoints.itemsByCategoryGroup()
-      setGroups(res.data)
-    } catch(e: any) {
-      httpError(e)
     }
   }
 

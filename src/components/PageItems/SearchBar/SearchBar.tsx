@@ -1,13 +1,13 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
+import { useItems } from "../../../providers/ItemsProvider";
 
-export default function SearchBar({fullTextSearch}: Props) {
-  const [value, setValue] = React.useState<string>('')
+export default function SearchBar() {
   const { t } = useTranslation()
+  const { q, setQAndSearch } = useItems()
 
-  async function searchLike(value: string) {
-    setValue(value)
-    await fullTextSearch(value)
+  async function searchByName(q: string = '') {
+    setQAndSearch(q)
   }
 
   return (
@@ -18,15 +18,12 @@ export default function SearchBar({fullTextSearch}: Props) {
           className="outline-0 w-10/12"
           type="text"
           name="search"
+          value={q}
           autoComplete="off"
           data-testid="search-input"
-          value={value}
-          onChange={async e => searchLike(e.target.value)}
+          onChange={e => searchByName(e.target.value)}
       />
     </>
   )
 }
 
-interface Props {
-  fullTextSearch: (value: string) => Promise<void>
-}
