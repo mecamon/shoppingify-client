@@ -54,31 +54,31 @@ This is a fullstack site created to fulfill a challenge in the site: [devchallen
 
 ## Gifs
 * Login and login out
-![Login and login out](./assets/gifs/login-logout.gif)
+![Login and login out](./src/assets/gifs/login-logout.gif)
 
 * Adding item
-![Adding items](./assets/gifs/adding-item.gif)
+![Adding items](./src/assets/gifs/adding-item.gif)
 
 * Deleting item
-![Deleting item](./assets/gifs/deleting-item.gif)
+![Deleting item](./src/assets/gifs/deleting-item.gif)
 
 * Creating list and adding items
 ![Creating list and adding items](./assets/gifs/creating-list-and-adding.gif)
 
 * Editing list
-![Editing list](./assets/gifs/editing-list.gif)
+![Editing list](./src/assets/gifs/editing-list.gif)
 
 * Checking items and completing list
-![Checking items and completing list](./assets/gifs/checking-items-completing-list.gif)
+![Checking items and completing list](./src/assets/gifs/checking-items-completing-list.gif)
 
 * List history
-![List history](./assets/gifs/list-history.gif)
+![List history](./src/assets/gifs/list-history.gif)
 
 * List stats
-![List stats](./assets/gifs/stats.gif)
+![List stats](./src/assets/gifs/stats.gif)
 
 * Searching for item
-![Searching for item](./assets/gifs/searching-item.gif)
+![Searching for item](./src/assets/gifs/searching-item.gif)
 
 ## Launch
 
