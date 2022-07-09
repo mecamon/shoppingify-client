@@ -4,13 +4,13 @@ import { useList } from "../../providers/ListProvider"
 import ItemsEndpoints from "../../services/rest-api/items"
 import AddItemMainContent from "./AddItemMainContent/AddItemMainContent"
 import SBBottomBarButton from "./SBBottomBarButton/SBBottomBarButton"
-import { useItems } from "../../providers/ItemsProvider"
 import { useErrorHandler } from "../../hooks/useErrorHandler"
+import { useItems } from "../../providers/ItemsProvider"
 
 export default function CreateItemAside() {
   const { t } = useTranslation()
   const { setAsideMode } = useList()
-  const { setGroups } = useItems()
+  const { getItems } = useItems()
   const { httpError } = useErrorHandler()
 
   const [isLoadingItem, setIsLoadingItem] = React.useState<boolean>(false)
@@ -35,7 +35,7 @@ export default function CreateItemAside() {
     try {
       const res = await ItemsEndpoints.create(fd)
       cleanUpItemForm()
-      loadItems()
+      await getItems('')
     } catch(e: any) {
       httpError(e)
     } finally {
@@ -60,15 +60,6 @@ export default function CreateItemAside() {
       name: '',
       note: ''
     })
-  }
-
-  async function loadItems() {
-    try {
-      const res = await ItemsEndpoints.itemsByCategoryGroup()
-      setGroups(res.data)
-    } catch (e: any) {
-      httpError(e)
-    }
   }
 
   return (

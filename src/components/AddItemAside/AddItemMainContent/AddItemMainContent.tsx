@@ -77,7 +77,7 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
   }
 
   return (
-    <form className="flex flex-col bg-main-bg h-full px-11 pb-11 pt-8 pb-40 overflow-y-auto">
+    <form className="flex flex-col bg-main-bg h-full px-11 pt-8 pb-40 overflow-y-auto">
       <h2 className=" text-2xl mb-8">{t("addNewItem")}</h2>
       {/* NAME */}
       <div className="flex flex-col mb-4">

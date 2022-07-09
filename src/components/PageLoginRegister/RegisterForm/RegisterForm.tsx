@@ -92,7 +92,7 @@ export default function RegisterForm({
         }
         <button 
           onClick={() => toggleAuthMode()}
-          className="text-accent-3 cursor-pointer mb-4 text-xs" 
+          className="text-accent-3 cursor-pointer mb-4 text-base" 
           data-testid="toggle-auth-mode"
           >{t("switchToLoginForm")}</button>
       </form>
