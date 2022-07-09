@@ -8,14 +8,16 @@ import RegisterForm from "./RegisterForm/RegisterForm"
 import ConfirmationModal from "../shared/ConfirmationModal/ConfirmationModal"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
-import ErrorManager from "../shared/ErrorManager/ErrorManager"
 import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 
 export default function LoginPage() {
   const { authenticated } = useAuth()
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const { httpError } = useErrorHandler()
+
   const [authenticatingState, setAuthenticatingState] = React.useState<AuthenticatingState>({isLoading: false, err: null})
   const [isRegisterMode, setIsRegisterMode] = React.useState<boolean>(false)
   const [loginInfoState, setLoginInfoState] = React.useState<LoginInfo>({email: '', password: ''})
@@ -56,9 +58,7 @@ export default function LoginPage() {
       navigate('/items')
     } catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
@@ -80,9 +80,7 @@ export default function LoginPage() {
       navigate('/items')
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }
@@ -96,9 +94,7 @@ export default function LoginPage() {
       authenticated()
     }catch (e: any) {
       setAuthenticatingState(state => ({...state, err: e?.response.data}))
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setAuthenticatingState(state => ({...state, isLoading: false}))
     }

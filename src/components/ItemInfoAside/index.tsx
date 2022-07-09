@@ -6,15 +6,17 @@ import ListsEndpoints from "../../services/rest-api/lists"
 import ItemInfoMainContent from "./ItemInfoMainContent/ItemInfoMainContent"
 import { toast } from 'react-toastify'
 import ItemsEndpoints from "../../services/rest-api/items"
-import ErrorManager from "../shared/ErrorManager/ErrorManager"
 import DisplayErrors from "../shared/DisplayErrors/DisplayErrors"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function ItemInfoAside() {
   const [isLoadingAddToList, setIsLoadingAddToList] = React.useState<boolean>(false)
   const [isLoadingDelete, setIsLoadingDelete] = React.useState<boolean>(false)
+
   const { t } = useTranslation()
   const { itemDetails, setGroups } = useItems()
   const { active, setAsideMode } = useList()
+  const { httpError } = useErrorHandler()
 
   async function addToList() {
     if (active === null) {
@@ -34,9 +36,7 @@ export default function ItemInfoAside() {
         position: toast.POSITION.BOTTOM_LEFT,
       })
     } catch(e: any) { 
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingAddToList(false)
     }
@@ -51,9 +51,7 @@ export default function ItemInfoAside() {
         position: toast.POSITION.BOTTOM_LEFT,
     })
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingDelete(false)
     }
@@ -64,9 +62,7 @@ export default function ItemInfoAside() {
       const res = await ItemsEndpoints.itemsByCategoryGroup()
       setGroups(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     }
   }
 

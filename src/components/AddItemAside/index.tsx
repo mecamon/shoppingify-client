@@ -7,11 +7,14 @@ import SBBottomBarButton from "./SBBottomBarButton/SBBottomBarButton"
 import { toast } from "react-toastify"
 import { useItems } from "../../providers/ItemsProvider"
 import ErrorManager from "../shared/ErrorManager/ErrorManager"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function CreateItemAside() {
   const { t } = useTranslation()
   const { setAsideMode } = useList()
   const { setGroups } = useItems()
+  const { httpError } = useErrorHandler()
+
   const [isLoadingItem, setIsLoadingItem] = React.useState<boolean>(false)
   const [formValues, setFormValues] = React.useState<ItemFormValues>({
     category_id: 0,
@@ -36,9 +39,7 @@ export default function CreateItemAside() {
       cleanUpItemForm()
       loadItems()
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingItem(false)
     }
@@ -68,9 +69,7 @@ export default function CreateItemAside() {
       const res = await ItemsEndpoints.itemsByCategoryGroup()
       setGroups(res.data)
     } catch (e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     }
   }
 

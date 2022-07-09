@@ -2,12 +2,13 @@ import { useItems} from "../../../providers/ItemsProvider"
 import React from "react"
 import ItemsEndpoints from "../../../services/rest-api/items"
 import CategoryGroup from "../CategoryGroup/CategoryGroup"
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
-import { toast } from 'react-toastify'
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function CategoriesGroups() {
   const { groups, setGroups } = useItems()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
+  const { httpError } = useErrorHandler()
 
   React.useEffect(() => {
     async function fetchItems() {
@@ -22,9 +23,7 @@ export default function CategoriesGroups() {
       const res = await ItemsEndpoints.itemsByCategoryGroup(4, 0)
       setGroups(res.data)
     }catch (e: any) {
-      toast.error(<ErrorManager error={e} />,
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
+      httpError(e)
     } finally {
       setIsLoading(() => false)
     }

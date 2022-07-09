@@ -9,10 +9,8 @@ import { AddItemTopArea } from "../AddItemTopArea/AddItemTopArea"
 import { useList } from "../../../providers/ListProvider"
 import ListSelectedItemLineComplete from "../ListSelectedItemLineComplete/ListSelectedItemLineComplete"
 import ListsEndpoints from "../../../services/rest-api/lists"
-import { toast } from "react-toastify"
-import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
 import ToggleEditCompleteButton from "../ToggleEditCompleteButton/ToggleEditCompleteButton"
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function ListAsideMainContent({updateItems, list, setItemsToDeleteOnClient}: Props) {
   const [listClientData, setListClientData] = React.useState<ListItemsGroupByCategory[]>([])
@@ -20,6 +18,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
 
   const { t } = useTranslation()
   const { isCompleting, setActive } = useList()
+  const { httpError } = useErrorHandler()
   
   const listFormatedData = React.useMemo(() => {
     const data = createGroupsByCategory(list?.items)
@@ -70,9 +69,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
       await ListsEndpoints.completeSelectedItem({item_sel_id: id})
       await realoadList()
     }catch (e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingCompleting(false)
     }
@@ -83,9 +80,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
       const res = await ListsEndpoints.getActive()
       setActive(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     }
   }
   

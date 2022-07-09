@@ -1,7 +1,8 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
-import AddItemSB from "./AddItemMainContent" 
+import AddItemMainContent from "./AddItemMainContent" 
 import { ItemFormValues } from "..";
+import AuthProvider from "../../../providers/AuthProvider";
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -15,7 +16,7 @@ jest.mock('react-i18next', () => ({
   },
 }))
 
-describe('AddItemSB', () => {
+describe('AddItemMainContent', () => {
   let setFormValues = jest.fn()
   let formValues: ItemFormValues = {
     category_id: 0,
@@ -27,10 +28,13 @@ describe('AddItemSB', () => {
   
   it('clears the item name input after clicking the "X" icon', () => {
     const { getByTestId } = render(
-      <AddItemSB  
+      <AuthProvider>
+        <AddItemMainContent  
         formValues={formValues} 
         setFormValues={setFormValues} 
-        />)
+        />
+      </AuthProvider>
+      )
     const categoryNameInput = getByTestId('category-name') as HTMLInputElement
     const crossIcon = getByTestId('cross-button')
 

@@ -3,6 +3,7 @@ import { fireEvent, render } from "@testing-library/react"
 import ListAsideMainContent from "./ListAsideMainContent"
 import { List } from "../../../models/models"
 import ListProvider from "../../../providers/ListProvider"
+import AuthProvider from "../../../providers/AuthProvider"
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -35,12 +36,14 @@ describe('ListItemsSB', () => {
 
   it('shows "No items" message when getting a list with no items', () => {
     const { getByTestId } = render(
-      <ListProvider>
-        <ListAsideMainContent 
-        updateItems={updateItems} 
-        setItemsToDeleteOnClient={setItemsToDeleteOnClient}
-        list={list} />
-      </ListProvider>
+      <AuthProvider>
+        <ListProvider>
+          <ListAsideMainContent 
+          updateItems={updateItems} 
+          setItemsToDeleteOnClient={setItemsToDeleteOnClient}
+          list={list} />
+        </ListProvider>
+      </AuthProvider>
       )
     const noItems = getByTestId('no-items')
     expect(noItems).toBeInTheDocument()
@@ -48,13 +51,15 @@ describe('ListItemsSB', () => {
 
   it('it finds the no active list message when the list value is null', () => {
     const { getByTestId } = render(
-      <ListProvider>
-        <ListAsideMainContent 
-        updateItems={updateItems} 
-        setItemsToDeleteOnClient={setItemsToDeleteOnClient}
-        list={null!} 
-        />
-      </ListProvider>
+      <AuthProvider>
+        <ListProvider>
+          <ListAsideMainContent 
+          updateItems={updateItems} 
+          setItemsToDeleteOnClient={setItemsToDeleteOnClient}
+          list={null!} 
+          />
+        </ListProvider>
+      </AuthProvider>
       )
     const noActiveListMessage = getByTestId("no-list")
     expect(noActiveListMessage).toBeInTheDocument()

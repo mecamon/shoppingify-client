@@ -6,6 +6,7 @@ import CategoriesFound from "../CategoriesFound/CategoriesFound"
 import { toast } from "react-toastify"
 import { ItemFormValues } from ".."
 import ErrorManager from "../../shared/ErrorManager/ErrorManager"
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function AddItemMainContent({formValues, setFormValues}: Props) {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
@@ -13,6 +14,7 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
   const [categoriesSuggested, setCategoriesSuggested] = React.useState<Category[]>([])
 
   const { t } = useTranslation()
+  const { httpError } = useErrorHandler()
   
   function selectCategory(category: Category) {
     setFormValues(prev => ({
@@ -50,9 +52,7 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
         setCategoriesSuggested(res.data)
       }
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingCategory(false)
     }
@@ -68,9 +68,7 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
       }))
       setCategoriesSuggested([])
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingCategory(false)
     }

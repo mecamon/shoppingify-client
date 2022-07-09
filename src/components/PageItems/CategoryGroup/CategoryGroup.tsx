@@ -3,14 +3,15 @@ import {GroupOfItemsByCat} from "../../../models/models"
 import ItemCard from "../ItemCard/ItemCard"
 import {useItems} from "../../../providers/ItemsProvider"
 import ItemsEndpoints from "../../../services/rest-api/items"
-import { toast } from 'react-toastify'
 import { useList } from "../../../providers/ListProvider"
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function CategoryGroup({ group }: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
   const { setItemDetails } = useItems()
   const { setAsideMode } = useList()
+  const { httpError } = useErrorHandler()
 
   async function getItem(id: number) {
     setIsLoading(true)
@@ -19,9 +20,7 @@ export default function CategoryGroup({ group }: Props) {
       setItemDetails(res.data)
       setAsideMode('ItemDetails')
     } catch (e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoading(false)
     }

@@ -1,13 +1,12 @@
 import React from "react"
 import { ItemsSummaryByMonth, ItemSummaryByYear, TopCategory, TopItem } from "../../models/models"
 import TopCategoriesEndpoints from "../../services/rest-api/top-categories"
-import ErrorManager from "../shared/ErrorManager/ErrorManager"
-import { toast } from 'react-toastify'
 import TopItemsEndpoints from "../../services/rest-api/top-items"
 import ItemPercentage from "./ItemPercentage/ItemPercentage"
 import { useTranslation } from "react-i18next"
 import ItemsSummaryEndpoints from "../../services/rest-api/items-summary"
 import CustomLineGraph from "./CustomLineGraph/CustomLineGraph"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function PageStats() {
   const [topCategories, setTopCategories] = React.useState<TopCategory[]>(null!)
@@ -20,6 +19,7 @@ export default function PageStats() {
   const [isLoadingSumByYear, setIsloadingSumByYear] = React.useState<boolean>(null!)
 
   const { t } = useTranslation()
+  const { httpError } = useErrorHandler()
 
   React.useEffect(() => {
     ;(async() => {
@@ -38,9 +38,7 @@ export default function PageStats() {
       const res = await TopCategoriesEndpoints.top()
       setTopCategories(res.data)
     }catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingTopCat(false)
     }
@@ -52,9 +50,7 @@ export default function PageStats() {
       const res = await TopItemsEndpoints.top()
       setTopItems(res.data)
     }catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingTopItems(false)
     }
@@ -68,9 +64,7 @@ export default function PageStats() {
       const res = await ItemsSummaryEndpoints.getByMonth(year)
       setSummaryByMonth(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoadingSumBymonth(false)
     }
@@ -82,9 +76,7 @@ export default function PageStats() {
       const res = await ItemsSummaryEndpoints.getByYear()
       setSummaryByYear(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsloadingSumByYear(false)
     }

@@ -11,6 +11,7 @@ import BottomBarActListContent from "./BottomBarActListContent/BottomBarActListC
 import BottomBarCompleting from "./BottomBarCompleting/BottomBarCompleting"
 import eventBus from "../../services/event-bus/event-bus"
 import ErrorManager from "../shared/ErrorManager/ErrorManager"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function ListAside() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -20,6 +21,7 @@ export default function ListAside() {
 
   const { active, setActive, isCompleting, setIsCompleting, setAsideMode } = useList()
   const { t } = useTranslation()
+  const { httpError } = useErrorHandler()
 
   React.useEffect(() => {
     async function getActiveList() {
@@ -47,9 +49,7 @@ export default function ListAside() {
       setActive(res.data)
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<ErrorManager error={e}/>, {
-          position: toast.POSITION.BOTTOM_LEFT,
-        })
+        httpError(e)
       } else {
         setActive(null!)
       }
@@ -65,9 +65,7 @@ export default function ListAside() {
       await ListsEndpoints.create(listToCreate)
       await loadActiveList()
     } catch(e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoading(false)
     }
@@ -94,9 +92,7 @@ export default function ListAside() {
       }
       await loadActiveList()
     } catch (e: any) {
-      toast.error(<ErrorManager error={e}/>, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
+      httpError(e)
     } finally {
       setIsLoading(false)
     }
@@ -117,9 +113,7 @@ export default function ListAside() {
       await loadActiveList()
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<ErrorManager error={e}/>, {
-          position: toast.POSITION.BOTTOM_LEFT,
-        })
+        httpError(e)
       }
     } finally {
       setIsLoadingCompleting(false)
@@ -137,9 +131,7 @@ export default function ListAside() {
       await loadActiveList()
     } catch(e: any) {
       if (e?.response.status !== 404) {
-        toast.error(<ErrorManager error={e}/>, {
-          position: toast.POSITION.BOTTOM_LEFT,
-        })
+        httpError(e)
       }
     } finally {
       setIsLoadingCompleting(false)

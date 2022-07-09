@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next"
 import { OldList } from "../../../models/models"
 import { useHistory } from "../../../providers/HistoryProvider"
 import ListsEndpoints from "../../../services/rest-api/lists"
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
-import { toast } from "react-toastify"
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 
 export default function OldListCard({oldList}: Props) {
@@ -12,6 +11,7 @@ export default function OldListCard({oldList}: Props) {
 
   const { t } = useTranslation()
   const { setSelectedList } = useHistory()
+  const { httpError } = useErrorHandler()
 
   async function getListInfo() {
     try{
@@ -19,9 +19,7 @@ export default function OldListCard({oldList}: Props) {
       const res = await ListsEndpoints.getListById(oldList.id)
       setSelectedList(res.data)     
     } catch(e: any) {
-      toast.error(<ErrorManager error={e} />,
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
+      httpError(e)
     } finally {
       setIsLoading(false)
     }

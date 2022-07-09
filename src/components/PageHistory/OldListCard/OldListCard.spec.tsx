@@ -3,6 +3,7 @@ import { OldList } from "../../../models/models"
 import OldListCard from "./OldListCard"
 import React from "react"
 import HistoryProvider from "../../../providers/HistoryProvider"
+import AuthProvider from "../../../providers/AuthProvider"
 
 jest.mock('react-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -35,9 +36,11 @@ describe('OldListCard', () => {
 
   it('finds the list name and the status completed', () => {
     const {getByTestId} = render(
-      <HistoryProvider>
-        <OldListCard oldList={oldList1} />
-      </HistoryProvider>
+      <AuthProvider>
+        <HistoryProvider>
+          <OldListCard oldList={oldList1} />
+        </HistoryProvider>
+      </AuthProvider>
     )
 
     const name = getByTestId('name')
@@ -49,9 +52,12 @@ describe('OldListCard', () => {
 
   it('finds the status completed', () => {
     const {getByTestId} = render(
-      <HistoryProvider>
-        <OldListCard oldList={oldList2} />
-      </HistoryProvider>
+      <AuthProvider>
+        <HistoryProvider>
+          <OldListCard oldList={oldList2} />
+        </HistoryProvider>
+      </AuthProvider>
+      
     )
 
     const status = getByTestId('status-cancelled')

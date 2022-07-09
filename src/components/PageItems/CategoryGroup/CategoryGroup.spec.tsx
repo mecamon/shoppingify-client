@@ -5,6 +5,7 @@ import {GroupOfItemsByCat, Item} from "../../../models/models"
 import ItemsEndpoints from '../../../services/rest-api/items'
 import ItemsProvider from "../../../providers/ItemsProvider"
 import ListProvider from '../../../providers/ListProvider'
+import AuthProvider from '../../../providers/AuthProvider'
 jest.mock('../../../services/rest-api/items')
 
 jest.mock('react-i18next', () => ({
@@ -47,11 +48,13 @@ describe('CategoryGroup', () => {
 
   it('matches the category with the one passed by the props',  () => {
     const { getByTestId } = render(
-      <ListProvider>
-        <ItemsProvider>
-          <CategoryGroup group={group} />
-        </ItemsProvider>
-      </ListProvider>
+      <AuthProvider>
+        <ListProvider>
+          <ItemsProvider>
+            <CategoryGroup group={group} />
+          </ItemsProvider>
+        </ListProvider>
+      </AuthProvider>
     )
     const categoryTitle = getByTestId('category')
     expect(categoryTitle).toBeInTheDocument()
@@ -61,11 +64,13 @@ describe('CategoryGroup', () => {
   it('finds the quantity of items in the category group',  () => {
     const { getAllByTestId } = screen
     render(
-      <ListProvider>
-        <ItemsProvider>
-          <CategoryGroup group={group} />
-        </ItemsProvider>
-      </ListProvider>
+      <AuthProvider>
+        <ListProvider>
+          <ItemsProvider>
+            <CategoryGroup group={group} />
+          </ItemsProvider>
+        </ListProvider>
+      </AuthProvider>
     )
     const items = getAllByTestId('name')
     expect(items.length).toEqual(group.items.length)

@@ -3,14 +3,16 @@ import {Item} from "../../../models/models"
 import { useList } from "../../../providers/ListProvider"
 import ListsEndpoints from "../../../services/rest-api/lists"
 import { toast } from "react-toastify"
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
 import { useTranslation } from "react-i18next"
 import DisplayErrors from "../../shared/DisplayErrors/DisplayErrors"
+import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function ItemCard({item, selectItem}: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
   const { active, setActive } = useList()
   const { t } = useTranslation()
+  const { httpError } = useErrorHandler()
 
   async function addItemToList(e: React.MouseEvent) {
     e.stopPropagation()
@@ -31,9 +33,7 @@ export default function ItemCard({item, selectItem}: Props) {
         {position: toast.POSITION.BOTTOM_LEFT}
       )
     }catch(e: any) {
-      toast.error(<ErrorManager error={e} />, 
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
+      httpError(e)
     } finally {
       setIsLoading(false)
     }
@@ -45,9 +45,7 @@ export default function ItemCard({item, selectItem}: Props) {
       const res = await ListsEndpoints.getActive()
       setActive(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e} />, 
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
+      httpError(e)
     } finally {
       setIsLoading(false)
     }

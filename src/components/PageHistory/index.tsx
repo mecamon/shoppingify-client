@@ -8,10 +8,13 @@ import { createGroupByMonth } from "../../helpers/group-by-month"
 import { useHistory } from "../../providers/HistoryProvider"
 import HCardsSkeletonLoader from "../shared/HCardsSkeletonLoader/HCardsSkeletonLoader"
 import { SeletedList } from "./SelectedList/SelectedList"
+import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export function PageHistory() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
   const { oldLists, setOldLists, selectedList } = useHistory()
+  const { httpError } = useErrorHandler()
 
   React.useEffect(() => {
     ;(async () => {
@@ -25,9 +28,7 @@ export function PageHistory() {
       const res = await ListsEndpoints.getOldLists()
       setOldLists(res.data)
     } catch(e: any) {
-      toast.error(<ErrorManager error={e} />,
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
+      httpError(e)
     } finally {
       setIsLoading(false)
     }
