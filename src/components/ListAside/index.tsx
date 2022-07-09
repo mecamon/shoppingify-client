@@ -28,12 +28,10 @@ export default function ListAside() {
         await loadActiveList()
       }
     }
-    console.log('ADDING EVENTS!!!!')
     getActiveList()
     eventBus.on('cancelListConfirmation', confirmCancelList)
     eventBus.on('completeListConfirmation', confirmCompleteList)
     return () => {
-      console.log('REMOVING EVENTS!!!!')
       eventBus.remove('cancelListConfirmation', confirmCancelList)
       eventBus.remove('completeListConfirmation', confirmCompleteList)
     } 
@@ -146,7 +144,7 @@ export default function ListAside() {
         updateItems={updateItems} 
         setItemsToDeleteOnClient={setItemsToDeleteOnClient}
       />
-      <div className="absolute z-10 bottom-0 w-full p-11 bg-white">
+      <div className="absolute z-50 bottom-0 w-full p-11 bg-white">
         { isCompleting
           ? <BottomBarCompleting isLoading={isLoadingCompleting}/>
           : active !== null 

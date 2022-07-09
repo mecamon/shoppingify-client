@@ -85,7 +85,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
   }
   
   return (
-    <div className="flex flex-col bg-menu-bg h-full px-3 xl:px-11 pb-11">
+    <div className="flex flex-col bg-menu-bg h-full px-3 xl:px-11 pb-11 overflow-y-auto">
       <div className="w-full h-1/4 relative p-4">
         <img className="absolute top-0" src={Bottle} alt="bottle icon" />
         <AddItemTopArea />
@@ -109,7 +109,7 @@ export default function ListAsideMainContent({updateItems, list, setItemsToDelet
                 <h2 className=" text-2xl text-labels">{list.name}</h2>
                 <ToggleEditCompleteButton />
               </div>
-              <div className="w-full flex flex-col">
+              <div className="w-full flex flex-col pb-36">
                 {
                   listClientData.map(group => 
                     <div className="w-full mb-8" key={group.category_id}>

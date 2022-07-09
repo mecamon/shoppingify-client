@@ -62,7 +62,9 @@ export default function PageStats() {
       const currentDate = new Date()
       const year = currentDate.getFullYear()
       const res = await ItemsSummaryEndpoints.getByMonth(year)
-      setSummaryByMonth(res.data)
+      if (res.status !== 204) {
+        setSummaryByMonth(res.data)
+      }
     } catch(e: any) {
       httpError(e)
     } finally {
@@ -74,7 +76,9 @@ export default function PageStats() {
     try {
       setIsloadingSumByYear(true)
       const res = await ItemsSummaryEndpoints.getByYear()
-      setSummaryByYear(res.data)
+      if (res.status !== 204) {
+        setSummaryByYear(res.data)
+      }
     } catch(e: any) {
       httpError(e)
     } finally {
@@ -90,6 +94,8 @@ export default function PageStats() {
             <h2 className="text-2xl">{t("topItems")}</h2>
             { isLoadingTopItems 
               ? <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              : topItems === null 
+              ? <h3 className=" text-xl text-light-text">{t("noTopItemsYet")}</h3>
               : <div className="mt-8">
                   { topItems?.map(i => <ItemPercentage key={i.id} topItem={i} barColor="#F9A109" /> ) }  
                 </div>
@@ -99,6 +105,8 @@ export default function PageStats() {
             <h2 className="text-2xl">{t("topCategories")}</h2>
             { isLoadingTopCat
               ? <div className="w-full h-60 my-3 rounded-xl card-skeleton"></div>
+              : topCategories === null
+              ? <h3 className=" text-xl text-light-text">{t("noTopCategoriesYet")}</h3>
               : <div className="mt-8">
                   { topCategories?.map(c => <ItemPercentage key={c.id} topItem={c} barColor="#56CCF2" /> ) }
                 </div>
@@ -115,7 +123,7 @@ export default function PageStats() {
               <div className="mt-14">
                 <h2 className="text-2xl mx-10 mb-5">{t("monthlySum")}</h2>
                 <CustomLineGraph 
-                dataForGraps={ summaryByMonth.months.map(m => ({x: m.month, y: m.quantity}))} 
+                dataForGraps={ summaryByMonth?.months.map(m => ({x: m.month, y: m.quantity}))} 
                 xDataKey={t("months")} 
                 lineDataKey={t("items")} />
               </div>
@@ -129,7 +137,7 @@ export default function PageStats() {
               <div className="mt-14">
                 <h2 className="text-2xl mx-10 mb-5">{t("yearlySum")}</h2>
                 <CustomLineGraph 
-                dataForGraps={ summaryByYear.map(m => ({x: m.year, y: m.quantity}))} 
+                dataForGraps={ summaryByYear?.map(m => ({x: m.year, y: m.quantity}))} 
                 xDataKey={t("years")} 
                 lineDataKey={t("items")} />
               </div>

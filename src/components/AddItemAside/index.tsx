@@ -4,9 +4,7 @@ import { useList } from "../../providers/ListProvider"
 import ItemsEndpoints from "../../services/rest-api/items"
 import AddItemMainContent from "./AddItemMainContent/AddItemMainContent"
 import SBBottomBarButton from "./SBBottomBarButton/SBBottomBarButton"
-import { toast } from "react-toastify"
 import { useItems } from "../../providers/ItemsProvider"
-import ErrorManager from "../shared/ErrorManager/ErrorManager"
 import { useErrorHandler } from "../../hooks/useErrorHandler"
 
 export default function CreateItemAside() {

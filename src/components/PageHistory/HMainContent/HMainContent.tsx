@@ -10,7 +10,12 @@ export function HMainContent({listGroupByMonth}: Props) {
   return (
     <>
       <div id="head" className="flex justify-between">
-        <h2 className="text-2xl lg:block lg:w-3/5 font-bold text-labels">{t("shoppingHistory")}</h2>
+        <div className="w-full">
+          <h2 className="text-2xl lg:block lg:w-3/5 font-bold text-labels">{t("shoppingHistory")}</h2>
+          {
+            <h3 className=" text-xl text-light-text">{t("noListInHistory")}</h3>
+          }
+        </div>
       </div>
       <section className="mt-9">
         { listGroupByMonth.map(g => 

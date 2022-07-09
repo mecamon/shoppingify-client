@@ -7,7 +7,7 @@ export default function ItemInfoMainContent({ itemDetails, backToList }: Props) 
   const { t } = useTranslation()
   
   return (
-    <div className="flex flex-col bg-white h-full px-3 xl:px-11 py-8">
+    <div className="flex flex-col bg-white h-full px-3 xl:px-11 pt-8 pb-40 overflow-y-auto">
       <button 
         className="flex items-center mb-8" 
         data-testid="back-button"

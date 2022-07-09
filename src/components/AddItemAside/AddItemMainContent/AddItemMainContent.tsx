@@ -3,9 +3,7 @@ import { useTranslation } from "react-i18next"
 import { Category } from "../../../models/models"
 import CategoriesEndpoints from "../../../services/rest-api/categories"
 import CategoriesFound from "../CategoriesFound/CategoriesFound"
-import { toast } from "react-toastify"
 import { ItemFormValues } from ".."
-import ErrorManager from "../../shared/ErrorManager/ErrorManager"
 import { useErrorHandler } from "../../../hooks/useErrorHandler"
 
 export default function AddItemMainContent({formValues, setFormValues}: Props) {
@@ -79,7 +77,7 @@ export default function AddItemMainContent({formValues, setFormValues}: Props) {
   }
 
   return (
-    <form className="flex flex-col bg-main-bg h-full px-11 pb-11 pt-8">
+    <form className="flex flex-col bg-main-bg h-full px-11 pb-11 pt-8 pb-40 overflow-y-auto">
       <h2 className=" text-2xl mb-8">{t("addNewItem")}</h2>
       {/* NAME */}
       <div className="flex flex-col mb-4">

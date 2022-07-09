@@ -86,7 +86,8 @@ export default function ItemInfoAside() {
           </button>
         </div>
         <div className="mx-2">
-          <button className="flex justify-center min-w-details-sb-button items-center bg-accent-2 text-base text-white rounded-xl py-5 transition-colors duration-500 ease-in"
+          <button 
+            className="flex justify-center min-w-details-sb-button items-center bg-accent-2 text-base text-white rounded-xl py-5 transition-colors duration-500 ease-in"
             data-testid="action-button" 
             disabled={isLoadingAddToList || isLoadingAddToList}
             onClick={async() => addToList()}>

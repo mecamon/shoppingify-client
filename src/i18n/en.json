@@ -76,6 +76,10 @@
     "years": "Years",
     "monthlySum": "Monthy Summary",
     "yearlySum": "Yearly Summary",
-    "confirmLogout": "Are you sure you want to logout?"
+    "confirmLogout": "Are you sure you want to logout?",
+    "noTopCategoriesYet": "There is no top categories calculated yet",
+    "noTopItemsYet": "There is no top items calculated yet",
+    "edit": "Edit",
+    "check": "Check"
   }
 }
