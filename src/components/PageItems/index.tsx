@@ -3,9 +3,11 @@ import { useTranslation } from "react-i18next"
 import SearchBar from "./SearchBar/SearchBar"
 import CategoriesGroups from "./CategoriesGroups/CategoriesGroups"
 import Pagination from '../shared/Pagination'
+import { useItems } from '../../providers/ItemsProvider'
 
 export default function ItemsPage() {
   const { t } = useTranslation()
+  const { groups } = useItems()
 
   return (
     <>
@@ -21,9 +23,12 @@ export default function ItemsPage() {
         </div>
         <CategoriesGroups/>
       </div>
-      <div className="flex justify-center">
-        <Pagination />
-      </div>
+      { groups !== null &&
+        <div className="flex justify-center">
+          <Pagination />
+        </div>
+      }
+      
     </>
   )
 }

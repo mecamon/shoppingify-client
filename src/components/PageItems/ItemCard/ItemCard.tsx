@@ -29,9 +29,6 @@ export default function ItemCard({item, selectItem}: Props) {
         list_id: active.id, 
         quantity: 1})
       await reloadList()
-      toast.success(t("itemAddedMessage"),
-        {position: toast.POSITION.BOTTOM_LEFT}
-      )
     }catch(e: any) {
       httpError(e)
     } finally {

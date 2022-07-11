@@ -9,18 +9,17 @@ export function ModalProvider({children}: {children: React.ReactNode}) {
   const { t } = useTranslation()
 
   function confirmListCancelling() {
-    eventBus.dispatch('cancelListConfirmation', {})
+    eventBus.dispatch('cancelListConfirmation')
     setType('none')
   }
 
   function confirmListCompleting() {
-    eventBus.dispatch('completeListConfirmation', {})
+    eventBus.dispatch('completeListConfirmation')
     setType('none')
   }
 
   function confirmLogout() {
-    console.log('LOGGING OUT')
-    eventBus.dispatch('confirmLogout', {})
+    eventBus.dispatch('confirmLogout')
     setType('none')
   }
 

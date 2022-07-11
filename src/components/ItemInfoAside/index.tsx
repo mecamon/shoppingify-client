@@ -32,9 +32,6 @@ export default function ItemInfoAside() {
         list_id: active.id,
         quantity: 1,
       })
-      toast.success(t("itemAddedMessage"), {
-        position: toast.POSITION.BOTTOM_LEFT,
-      })
     } catch(e: any) { 
       httpError(e)
     } finally {
