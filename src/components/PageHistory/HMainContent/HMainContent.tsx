@@ -12,7 +12,7 @@ export function HMainContent({listGroupByMonth}: Props) {
       <div id="head" className="flex justify-between">
         <div className="w-full">
           <h2 className="text-2xl lg:block lg:w-3/5 font-bold text-labels">{t("shoppingHistory")}</h2>
-          {
+          { ( listGroupByMonth.length === 0 || listGroupByMonth === null) &&
             <h3 className=" text-xl text-light-text">{t("noListInHistory")}</h3>
           }
         </div>

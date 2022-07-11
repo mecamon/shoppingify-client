@@ -47,6 +47,7 @@ export default function ItemInfoAside() {
       toast.success(t("itemDeletedMessage"), {
         position: toast.POSITION.BOTTOM_LEFT,
     })
+    setAsideMode('List')
     } catch(e: any) {
       httpError(e)
     } finally {

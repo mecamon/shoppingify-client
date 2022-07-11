@@ -1,7 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import ListsEndpoints from "../../services/rest-api/lists"
-import { toast } from "react-toastify"
 import { HMainContent } from "./HMainContent/HMainContent"
 import { createGroupByMonth } from "../../helpers/group-by-month"
 import { useHistory } from "../../providers/HistoryProvider"
