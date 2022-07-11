@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, HashRouter } from 'react-router-dom'
 import App from './App'
 import LoginPage from './components/PageLoginRegister'
 import './index.css'
@@ -18,7 +18,7 @@ import PageStats from './components/PageStats'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <ListProvider>
           <ItemsProvider>
@@ -39,6 +39,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           </ItemsProvider>
         </ListProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   // </React.StrictMode>
 )
