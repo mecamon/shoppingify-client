@@ -59,14 +59,14 @@ export default function LoginForm({
               <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
             </button>
         }
-        <button
+        {/* <button
           type="button"
           onClick={() => showConfirmationAsVisitor()}
           className="text-accent-3"
           data-testid="visitor-login"
           >
           {t("visitor")}
-        </button>
+        </button> */}
         <button 
           type="button"
           onClick={() => toggleAuthMode()}

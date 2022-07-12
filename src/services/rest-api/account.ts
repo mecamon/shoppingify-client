@@ -13,6 +13,6 @@ export default class AccountEndpoints {
   }
 
   static visitor(): Promise<AxiosResponse<SuccessLogged>> {
-    return axiosJsonIns.post('/api/auth/visitor-register', null)
+    return axiosJsonIns.post('/api/auth/visitor-register', {})
   }
 }

@@ -80,6 +80,7 @@
     "noTopCategoriesYet": "There is no top categories calculated yet",
     "noTopItemsYet": "There is no top items calculated yet",
     "edit": "Edit",
-    "check": "Check"
+    "check": "Check",
+    "noItemsYet": "No items available. Create a few from the side bar"
   }
 }
